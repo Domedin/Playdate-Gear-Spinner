@@ -9,11 +9,11 @@ function Gear:init(x, y)
     Gear.super.init(self, gearImage)
     self:moveTo(x, y)
     self:add()
-    self:setCollideRect(0, 0, self:getSize())
     self.rotation = 0
     self.x = x
     self.y = y
     self.angle = 0
+    self.canGetPoint = true
 end
 
 function Gear:update()
@@ -22,14 +22,18 @@ end
 
 function Gear:Rotation()
     self:setRotation(self.angle)
-    --Gear:angleChangeFunction(playdate.getCrankChange())
-    self.angle += 1
-end
-
-function Gear:angleChangeFunction(angleChange)
-    angleChange = angleChange / 90
-    if angleChange ~= 0 then
-        self.angle += 1 * math.abs(angleChange)
+    angleChange, angleAcceleratedChange = playdate.getCrankChange()
+    angleChange = math.abs(angleChange / 4)
+    if angleChange > 4 then
+        angleChange = 4
     end
-    self.angle += 1
+    self.angle += 1 * math.abs(angleChange)
+    print(self:getRotation())
+    
+    if self:getRotation() > 356 then
+        self.canGetPoint = true
+    elseif self:getRotation() < 10 and self.canGetPoint then
+        incrementScore()
+        self.canGetPoint = false
+    end
 end

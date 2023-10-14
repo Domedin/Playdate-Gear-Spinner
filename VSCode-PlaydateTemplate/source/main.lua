@@ -12,7 +12,7 @@ import "upgrade"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
-upgrade(200, 200)
+Upgrade(100, 200)
 CreateScoreDisplay()
 Gear(55, 55)
 

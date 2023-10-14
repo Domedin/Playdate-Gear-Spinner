@@ -13,6 +13,7 @@ function CreateScoreDisplay()
     gearSprite:setCenter(0,0)
     gearSprite:moveTo(320, 4)
     gearSprite:add()
+    Upgrade = Upgrade(100, 200)
 end
 
 function UpdateDisplay()
@@ -26,6 +27,6 @@ function UpdateDisplay()
 end
 
 function incrementScore()
-    gearNum += 1 * upgrade.upgradeNum
+    gearNum += 1 * Upgrade.upgradeNum
     UpdateDisplay()
 end

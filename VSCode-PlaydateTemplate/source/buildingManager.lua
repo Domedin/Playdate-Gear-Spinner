@@ -1,13 +1,11 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-class('Upgrade').extends(gfx.sprite)
+class('Building').extends(gfx.sprite)
 
-function Upgrade:init(row, column, type, cost, multiplier, pressed, imagepath)
-    self.row = row
+function Building:init(column, type, cost, revenue, imagepath)
     self.column = column
-    self.multiplier = multiplier
-    self.pressed = pressed
+    self.revenue = revenue
     self.type = type
     self.image = gfx.image.new(imagepath)
     self.cost = cost
@@ -17,20 +15,20 @@ function Upgrade:init(row, column, type, cost, multiplier, pressed, imagepath)
     --self:add()
 end
 
-class('UpgradeManager').extends(gfx.sprite)
+class('BuildingManager').extends(gfx.sprite)
 
-local upgrades = {}
+local Buildings = {}
 
-function UpgradeManager:createUpgrade(row, column, type, cost, multiplier, pressed, imagepath)
-    self.gridview = pd.ui.gridview.new(32, 32)
-    self.gridview:setNumberOfRows(16)
-    self.gridview:setNumberOfColumns(4)
+function BuildingManager:createUpgrade(column, type, cost, revenue, imagepath)
+    self.gridview = pd.ui.gridview.new(128, 32)
+    self.gridview:setNumberOfRows(8)
+    self.gridview:setNumberOfColumns(1)
     self.gridview:setCellPadding(1, 1, 1, 1)
-    local upgrade = Upgrade(row, column, type, cost, multiplier, pressed, imagepath)
-    table.insert(upgrades, upgrade)
+    local Building = Building(column, type, cost, revenue, imagepath)
+    table.insert(Buildings, Building)
 end
 
-function UpgradeManager:NavigateCells()
+function BuildingManager:NavigateCells()
     if pd.buttonIsPressed(pd.kButtonUp) then
         self.gridview:selectPreviousRow(false)
     elseif pd.buttonIsPressed(pd.kButtonDown) then

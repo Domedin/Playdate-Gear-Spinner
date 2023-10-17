@@ -26,6 +26,9 @@ function UpgradeManager:createUpgrade(row, column, type, cost, multiplier, press
     self.gridview:setNumberOfRows(16)
     self.gridview:setNumberOfColumns(4)
     self.gridview:setCellPadding(1, 1, 1, 1)
+    function self.gridview:drawCell(section, row, column, selected, x, y, width, height)
+        imagepath:draw(x, y)
+    end
     local upgrade = Upgrade(row, column, type, cost, multiplier, pressed, imagepath)
     table.insert(upgrades, upgrade)
 end

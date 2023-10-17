@@ -9,10 +9,6 @@ function Building:init(column, type, cost, revenue, imagepath)
     self.type = type
     self.image = gfx.image.new(imagepath)
     self.cost = cost
-
-    --self:setImage(self.image)
-    --self:moveTo(row, column)
-    --self:add()
 end
 
 class('BuildingManager').extends(gfx.sprite)

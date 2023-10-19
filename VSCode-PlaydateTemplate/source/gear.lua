@@ -4,7 +4,7 @@ local gfx <const> = pd.graphics
 class('Gear').extends(gfx.sprite)
 
 function Gear:init(x, y)
-    local gearImage = gfx.image.new("images/Gear")
+    local gearImage = gfx.image.new("images/Gear/Gear")
     self:setImage(gearImage)
     Gear.super.init(self, gearImage)
     self:moveTo(x, y)

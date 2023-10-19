@@ -10,3 +10,13 @@ function Background:init(x, y)
     self:moveTo(x, y)
     self:add()
 end
+
+class('BackgroundReplace').extends(gfx.sprite)
+
+function BackgroundReplace:init(x, y)
+    local backgroundReplaceImage = gfx.image.new("images/backgroundReplace")
+    self:setImage(backgroundReplaceImage)
+    BackgroundReplace.super.init(self, backgroundReplaceImage)
+    self:moveTo(x, y)
+    self:add()
+end

@@ -1,18 +1,19 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+--Is just used to call functions (Is this even necessary?)
 UpgradeManager = {}
 
+--The Table that stores all the upgrade information
 Upgrades = {}
 
+--Adds the button information to the upgrades table
 function UpgradeManager:Upgrades(numInOrder, type, cost, multiplier, imagepath, selectedImagePath)
     local upgrade = {numInOrder, type, cost, multiplier, imagepath, selectedImagePath}
     table.insert(Upgrades, upgrade)
-    for i,upgrade in ipairs(Upgrades) do
-        print(upgrade[1])
-    end
 end
 
+--All the button Images
 local gearImage = gfx.image.new("images/upgradeIcon")
 local selectedGearImage = gfx.image.new("images/SelectedGearIcon")
 
@@ -25,6 +26,7 @@ local selectedCarImage = gfx.image.new("images/upgradeIcons/selectedCarIcon")
 local rocketImage = gfx.image.new("images/upgradeIcons/rocketUpgradeIcon")
 local selectedRocketImage = gfx.image.new("images/upgradeIcons/selectedRocketIcon")
 
+--Creates all the button information
 function UpgradeManager:createUpgrades()
     UpgradeManager:Upgrades(1, "Gear", 10, 0.2, gearImage, selectedGearImage)
     UpgradeManager:Upgrades(2, "Factory", 15, 2, factoryImage, selectedFactoryImage)

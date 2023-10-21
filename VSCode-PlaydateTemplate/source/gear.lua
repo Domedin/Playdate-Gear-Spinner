@@ -3,6 +3,7 @@ local gfx <const> = pd.graphics
 
 class('Gear').extends(gfx.sprite)
 
+--Creates the gear
 function Gear:init(x, y)
     local gearImage = gfx.image.new("images/Gear/Gear")
     self:setImage(gearImage)
@@ -20,6 +21,7 @@ function Gear:update()
     self:Rotation()
 end
 
+--Spins the gear based on how quickly the crank is spun
 function Gear:Rotation()
     self:setRotation(self.angle)
     angleChange, angleAcceleratedChange = playdate.getCrankChange()

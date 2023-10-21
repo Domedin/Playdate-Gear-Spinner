@@ -4,6 +4,7 @@ local gfx <const> = pd.graphics
 local gearSprite
 local gearNum
 
+--Creates the gear score
 function CreateScoreDisplay()
     gearSprite = gfx.sprite.new()
     gearNum = 0
@@ -13,6 +14,7 @@ function CreateScoreDisplay()
     gearSprite:add()
 end
 
+--Updates the display
 function UpdateDisplay()
     local gearText = "Gears: " .. gearNum
     local textWidth, textHeight = gfx.getTextSize(gearText)
@@ -23,6 +25,7 @@ function UpdateDisplay()
     gearSprite:setImage(gearImage)
 end
 
+--Adds to the gear score
 function incrementScore()
     gearNum += 1
     UpdateDisplay()

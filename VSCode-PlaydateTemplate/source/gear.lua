@@ -28,7 +28,6 @@ function Gear:Rotation()
         angleChange = 4
     end
     self.angle += 1 * math.abs(angleChange)
-    print(self:getRotation())
     
     if self:getRotation() > 356 then
         self.canGetPoint = true

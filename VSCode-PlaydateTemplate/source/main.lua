@@ -10,6 +10,7 @@ import "gear"
 import "gearCount"
 import "background"
 import "buildingManager"
+import "upgradeManager"
 
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
@@ -32,22 +33,22 @@ function NavigateCells()
     end
 end
 
-local gearImage = gfx.image.new("images/upgradeIcon")
-local selectedGearImage = gfx.image.new("images/SelectedGearIcon")
+UpgradeManager:createUpgrades()
 
-local factoryImage = gfx.image.new("images/FactoryIcon")
-local selectedFactoryImage = gfx.image.new("images/selectedFactoryIcon")
+--[[
+for i,upgrade in ipairs(Upgrades) do
+    print(upgrade[1])
+end
 
-local carImage = gfx.image.new("images/upgradeIcons/carUpgradeIcon")
-local selectedCarImage = gfx.image.new("images/upgradeIcons/selectedCarIcon")
-
-local rocketImage = gfx.image.new("images/upgradeIcons/rocketUpgradeIcon")
-local selectedRocketImage = gfx.image.new("images/upgradeIcons/selectedRocketIcon")
-
+for i=1,20 do
+    print(i)
+end
+]]
 function upgradeGridView:drawCell(section, row, column, selected, x, y, width, height)
-    if column == 1 then
+    --ROW ONE
+    if column == 1 and row == 1 then
         if selected then
-            selectedGearImage:draw(x, y)
+            Upgrades[1][6]:draw(x, y)
 
             BackgroundReplace(197, 142)
 
@@ -56,82 +57,348 @@ function upgradeGridView:drawCell(section, row, column, selected, x, y, width, h
             gearInfo:moveTo(132, 43)
             gearInfo:add()
 
-            local gearText = "Gear Upgrade"
-            local textWidth, textHeight = gfx.getTextSize(gearText)
-            local gearTextImage = gfx.image.new(textWidth, textHeight)
-            gfx.pushContext(gearTextImage)
-                gfx.drawText(gearText, 0, 0)
+            local Text = Upgrades[1][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
             gfx.popContext()
-            gearInfo:setImage(gearTextImage)
-            print("gear")
+            gearInfo:setImage(TextImage)
         else
-            gearImage:draw(x, y)
+            Upgrades[1][5]:draw(x, y)
         end
-    elseif column == 2 then
+    end
+    if column == 2 and row == 1 then
         if selected then
-            selectedFactoryImage:draw(x, y)
+            Upgrades[2][6]:draw(x, y)
 
             BackgroundReplace(197, 142)
 
-            factoryInfo = gfx.sprite.new()
-            factoryInfo:setCenter(0,0)
-            factoryInfo:moveTo(132, 43)
-            factoryInfo:add()
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
 
-            local factoryText = "Factory Upgrade"
-            local textWidth, textHeight = gfx.getTextSize(factoryText)
-            local factoryTextImage = gfx.image.new(textWidth, textHeight)
-            gfx.pushContext(factoryTextImage)
-                gfx.drawText(factoryText, 0, 0)
+            local Text = Upgrades[2][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
             gfx.popContext()
-            factoryInfo:setImage(factoryTextImage)
-            print("factory")
+            gearInfo:setImage(TextImage)
         else
-            factoryImage:draw(x, y)
+            Upgrades[2][5]:draw(x, y)
         end
-    elseif column == 3 then
+    end
+    if column == 3 and row == 1 then
         if selected then
-            selectedCarImage:draw(x, y)
+            Upgrades[3][6]:draw(x, y)
 
             BackgroundReplace(197, 142)
 
-            CarInfo = gfx.sprite.new()
-            CarInfo:setCenter(0,0)
-            CarInfo:moveTo(132, 43)
-            CarInfo:add()
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
 
-            local CarText = "Car Upgrade"
-            local textWidth, textHeight = gfx.getTextSize(CarText)
-            local CarTextImage = gfx.image.new(textWidth, textHeight)
-            gfx.pushContext(CarTextImage)
-                gfx.drawText(CarText, 0, 0)
+            local Text = Upgrades[3][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
             gfx.popContext()
-            CarInfo:setImage(CarTextImage)
-            print("car")
+            gearInfo:setImage(TextImage)
         else
-            carImage:draw(x, y)
+            Upgrades[3][5]:draw(x, y)
         end
-    elseif column == 4 then
+    end
+    if column == 4 and row == 1 then
         if selected then
-            selectedRocketImage:draw(x, y)
+            Upgrades[4][6]:draw(x, y)
 
             BackgroundReplace(197, 142)
 
-            RocketInfo = gfx.sprite.new()
-            RocketInfo:setCenter(0,0)
-            RocketInfo:moveTo(132, 43)
-            RocketInfo:add()
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
 
-            local RocketText = "Rocket Upgrade"
-            local textWidth, textHeight = gfx.getTextSize(RocketText)
-            local RocketTextImage = gfx.image.new(textWidth, textHeight)
-            gfx.pushContext(RocketTextImage)
-                gfx.drawText(RocketText, 0, 0)
+            local Text = Upgrades[4][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
             gfx.popContext()
-            RocketInfo:setImage(RocketTextImage)
-            print("rocket")
+            gearInfo:setImage(TextImage)
         else
-            rocketImage:draw(x, y)
+            Upgrades[4][5]:draw(x, y)
+        end
+    end
+    --ROW TWO
+    if column == 1 and row == 2 then
+        if selected then
+            Upgrades[5][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[5][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[5][5]:draw(x, y)
+        end
+    end
+    if column == 2 and row == 2 then
+        if selected then
+            Upgrades[6][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[6][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[6][5]:draw(x, y)
+        end
+    end
+    if column == 3 and row == 2 then
+        if selected then
+            Upgrades[7][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[7][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[7][5]:draw(x, y)
+        end
+    end
+    if column == 4 and row == 2 then
+        if selected then
+            Upgrades[8][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[8][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[8][5]:draw(x, y)
+        end
+    end
+    --ROW THREE
+    if column == 1 and row == 3 then
+        if selected then
+            Upgrades[9][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[9][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[9][5]:draw(x, y)
+        end
+    end
+    if column == 2 and row == 3 then
+        if selected then
+            Upgrades[10][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[10][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[10][5]:draw(x, y)
+        end
+    end
+    if column == 3 and row == 3 then
+        if selected then
+            Upgrades[11][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[11][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[11][5]:draw(x, y)
+        end
+    end
+    if column == 4 and row == 3 then
+        if selected then
+            Upgrades[12][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[12][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[12][5]:draw(x, y)
+        end
+    end
+    --ROW FOUR
+    if column == 1 and row == 4 then
+        if selected then
+            Upgrades[13][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[13][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[13][5]:draw(x, y)
+        end
+    end
+    if column == 2 and row == 4 then
+        if selected then
+            Upgrades[14][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[14][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[14][5]:draw(x, y)
+        end
+    end
+    if column == 3 and row == 4 then
+        if selected then
+            Upgrades[15][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[15][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[15][5]:draw(x, y)
+        end
+    end
+    if column == 4 and row == 4 then
+        if selected then
+            Upgrades[16][6]:draw(x, y)
+
+            BackgroundReplace(197, 142)
+
+            gearInfo = gfx.sprite.new()
+            gearInfo:setCenter(0,0)
+            gearInfo:moveTo(132, 43)
+            gearInfo:add()
+
+            local Text = Upgrades[16][2] .. " Upgrade"
+            local textWidth, textHeight = gfx.getTextSize(Text)
+            local TextImage = gfx.image.new(textWidth, textHeight)
+            gfx.pushContext(TextImage)
+                gfx.drawText(Text, 0, 0)
+            gfx.popContext()
+            gearInfo:setImage(TextImage)
+        else
+            Upgrades[16][5]:draw(x, y)
         end
     end
 end
@@ -140,7 +407,7 @@ function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
 
-    upgradeGridView:setNumberOfRows(16)
+    upgradeGridView:setNumberOfRows(4)
     upgradeGridView:setNumberOfColumns(4)
     upgradeGridView:setCellPadding(1, 1, 1, 1)
     NavigateCells()

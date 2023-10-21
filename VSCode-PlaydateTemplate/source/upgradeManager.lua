@@ -1,19 +1,6 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
---class('Upgrade').extends(gfx.sprite)
---Upgrade = {}
---[[
-function Upgrade:init(numInOrder, type, cost, multiplier, imagepath, selectedImagePath)
-    self.numInOrder = numInOrder
-    self.multiplier = multiplier
-    self.pressed = pressed
-    self.type = type
-    self.image = imagepath
-    self.selectedImagePath = selectedImagePath
-    self.cost = cost
-end
-]]
 UpgradeManager = {}
 
 Upgrades = {}

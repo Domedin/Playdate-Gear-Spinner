@@ -18,18 +18,20 @@ function Gear:init(x, y)
 end
 
 function Gear:update()
-    self:Rotation()
+    sample("Rotate gear", function()
+        self:Rotation()
+    end) 
 end
 
 --Spins the gear based on how quickly the crank is spun
 function Gear:Rotation()
-    self:setRotation(self.angle)
     angleChange, angleAcceleratedChange = playdate.getCrankChange()
     angleChange = math.abs(angleChange / 4)
     if angleChange > 4 then
         angleChange = 4
     end
     self.angle += 1 * math.abs(angleChange)
+    self:setRotation(self.angle)
     
     if self:getRotation() > 356 then
         self.canGetPoint = true

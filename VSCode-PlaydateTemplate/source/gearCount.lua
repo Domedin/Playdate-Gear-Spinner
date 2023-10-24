@@ -2,12 +2,11 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 local gearSprite
-local gearNum
+gearNum = 600
 
 --Creates the gear score
 function CreateScoreDisplay()
     gearSprite = gfx.sprite.new()
-    gearNum = 0
     UpdateDisplay()
     gearSprite:setCenter(0,0)
     gearSprite:moveTo(320, 4)
@@ -27,6 +26,6 @@ end
 
 --Adds to the gear score
 function incrementScore()
-    gearNum += 1
+    gearNum += 3
     UpdateDisplay()
 end

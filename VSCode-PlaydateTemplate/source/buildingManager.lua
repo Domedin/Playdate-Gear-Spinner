@@ -1,37 +1,31 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-class('Building').extends(gfx.sprite)
+--Is just used to call functions (Is this even necessary?)
+BuildingManager = {}
 
-function Building:init(column, type, cost, revenue, imagepath)
-    self.column = column
-    self.revenue = revenue
-    self.type = type
-    self.image = gfx.image.new(imagepath)
-    self.cost = cost
+--The Table that stores all the upgrade information
+Buildings = {}
+
+--Adds the button information to the upgrades table
+function BuildingManager:Upgrades(numInOrder, type, cost, multiplier, imagepath, selectedImagePath, upgradeType, upgradeCost)
+    local building = {numInOrder, type, cost, multiplier, imagepath, selectedImagePath}
+    table.insert(Buildings, building)
 end
 
-class('BuildingManager').extends(gfx.sprite)
+--All the button Images
+local factoryImage = gfx.image.new("Images/buildingIcons/FactoryBuilding")
+local selectedFactoryImage = gfx.image.new("Images/buildingIcons/SelectedFactoryBuilding")
 
-local Buildings = {}
+local carImage = gfx.image.new("Images/buildingIcons/CarBuilding")
+local selectedCarImage = gfx.image.new("Images/buildingIcons/SelectedCarBuilding")
 
-function BuildingManager:createUpgrade(column, type, cost, revenue, imagepath)
-    self.gridview = pd.ui.gridview.new(128, 32)
-    self.gridview:setNumberOfRows(8)
-    self.gridview:setNumberOfColumns(1)
-    self.gridview:setCellPadding(1, 1, 1, 1)
-    local Building = Building(column, type, cost, revenue, imagepath)
-    table.insert(Buildings, Building)
-end
+local rocketImage = gfx.image.new("Images/buildingIcons/RocketBuilding.png")
+local selectedRocketImage = gfx.image.new("Images/buildingIcons/SelectedRocketBuilding.png")
 
-function BuildingManager:NavigateCells()
-    if pd.buttonIsPressed(pd.kButtonUp) then
-        self.gridview:selectPreviousRow(false)
-    elseif pd.buttonIsPressed(pd.kButtonDown) then
-        self.gridview:selectNextRow(false)
-    elseif pd.buttonIsPressed(pd.kButtonLeft) then
-        self.gridview:selectPreviousColumn(false)
-    elseif pd.buttonIsPressed(pd.kButtonRight) then
-        self.gridview:selectNextColumn(false)
-    end
+--Creates all the button information
+function BuildingManager:createUpgrades()
+    BuildingManager:Upgrades("Factory", 10, 1.2, factoryImage, selectedFactoryImage)
+    BuildingManager:Upgrades("Car", 15, 2, carImage, selectedCarImage)
+    BuildingManager:Upgrades("Rocket", 20, 2, rocketImage, selectedRocketImage)
 end

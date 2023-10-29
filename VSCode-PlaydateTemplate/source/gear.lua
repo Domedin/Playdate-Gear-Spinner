@@ -18,9 +18,7 @@ function Gear:init(x, y)
 end
 
 function Gear:update()
-    sample("Rotate gear", function()
-        self:Rotation()
-    end) 
+    self:Rotation()
 end
 
 --Spins the gear based on how quickly the crank is spun

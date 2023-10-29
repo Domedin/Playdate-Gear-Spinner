@@ -8,8 +8,8 @@ BuildingManager = {}
 Buildings = {}
 
 --Adds the button information to the upgrades table
-function BuildingManager:Upgrades(numInOrder, type, cost, multiplier, imagepath, selectedImagePath, upgradeType, upgradeCost)
-    local building = {numInOrder, type, cost, multiplier, imagepath, selectedImagePath}
+function BuildingManager:Upgrades(numInOrder, amount, cost, gps, imagepath, selectedImagePath)
+    local building = {numInOrder, amount, cost, gps, imagepath, selectedImagePath}
     table.insert(Buildings, building)
 end
 
@@ -25,7 +25,7 @@ local selectedRocketImage = gfx.image.new("Images/buildingIcons/SelectedRocketBu
 
 --Creates all the button information
 function BuildingManager:createUpgrades()
-    BuildingManager:Upgrades("Factory", 10, 1.2, factoryImage, selectedFactoryImage)
-    BuildingManager:Upgrades("Car", 15, 2, carImage, selectedCarImage)
-    BuildingManager:Upgrades("Rocket", 20, 2, rocketImage, selectedRocketImage)
+    BuildingManager:Upgrades("Factory", 0, 10, 0, factoryImage, selectedFactoryImage)
+    BuildingManager:Upgrades("Car", 0, 50, 0, carImage, selectedCarImage)
+    BuildingManager:Upgrades("Rocket", 0, 250, 0, rocketImage, selectedRocketImage)
 end

@@ -8,7 +8,7 @@ UpgradeManager = {}
 Upgrades = {}
 
 --Adds the button information to the upgrades table
-function UpgradeManager:Upgrades(type, cost, multiplier, imagepath, selectedImagePath, upgradeType, upgradeCost)
+function UpgradeManager:Upgrades(type, cost, multiplier, imagepath, selectedImagePath)
     local upgrade = {type, cost, multiplier, imagepath, selectedImagePath}
     table.insert(Upgrades, upgrade)
 end
@@ -16,6 +16,9 @@ end
 --All the button Images
 local gearImage = gfx.image.new("Images/upgradeIcons/upgradeIcon")
 local selectedGearImage = gfx.image.new("Images/upgradeIcons/SelectedGearIcon")
+
+local mineImage = gfx.image.new("Images/upgradeIcons/mineUpgradeIcon")
+local selectedMineImage = gfx.image.new("Images/upgradeIcons/selectedMineIcon")
 
 local factoryImage = gfx.image.new("Images/upgradeIcons/FactoryIcon")
 local selectedFactoryImage = gfx.image.new("Images/upgradeIcons/selectedFactoryIcon")
@@ -29,19 +32,26 @@ local selectedRocketImage = gfx.image.new("images/upgradeIcons/selectedRocketIco
 --Creates all the button information
 function UpgradeManager:createUpgrades()
     UpgradeManager:Upgrades("Gear", 10, 1.2, gearImage, selectedGearImage)
-    UpgradeManager:Upgrades("Factory", 15, 2, factoryImage, selectedFactoryImage)
-    UpgradeManager:Upgrades("Car", 20, 2, carImage, selectedCarImage)
-    UpgradeManager:Upgrades("Rocket", 25, 2, rocketImage, selectedRocketImage)
-    UpgradeManager:Upgrades("Gear", 30, 1.2, gearImage, selectedGearImage)
-    UpgradeManager:Upgrades("Factory", 35, 2, factoryImage, selectedFactoryImage)
-    UpgradeManager:Upgrades("Car", 40, 2, carImage, selectedCarImage)
-    UpgradeManager:Upgrades("Rocket", 45, 2, rocketImage, selectedRocketImage)
-    UpgradeManager:Upgrades("Gear", 50, 1.2, gearImage, selectedGearImage)
-    UpgradeManager:Upgrades("Factory", 55, 2, factoryImage, selectedFactoryImage)
-    UpgradeManager:Upgrades("Car", 60, 2, carImage, selectedCarImage)
-    UpgradeManager:Upgrades("Rocket", 65, 2, rocketImage, selectedRocketImage)
-    UpgradeManager:Upgrades("Gear", 70, 1.2, gearImage, selectedGearImage)
-    UpgradeManager:Upgrades("Factory", 75, 2, factoryImage, selectedFactoryImage)
-    UpgradeManager:Upgrades("Car", 80, 2, carImage, selectedCarImage)
-    UpgradeManager:Upgrades("Rocket", 85, 2, rocketImage, selectedRocketImage)
+    UpgradeManager:Upgrades("Mine", 15, 2, mineImage, selectedMineImage)
+    UpgradeManager:Upgrades("Factory", 20, 2, factoryImage, selectedFactoryImage)
+    UpgradeManager:Upgrades("Car", 25, 2, carImage, selectedCarImage)
+    UpgradeManager:Upgrades("Rocket", 30, 2, rocketImage, selectedRocketImage)
+
+    UpgradeManager:Upgrades("Gear", 35, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Mine", 40, 2, mineImage, selectedMineImage)
+    UpgradeManager:Upgrades("Factory", 45, 2, factoryImage, selectedFactoryImage)
+    UpgradeManager:Upgrades("Car", 50, 2, carImage, selectedCarImage)
+    UpgradeManager:Upgrades("Rocket", 55, 2, rocketImage, selectedRocketImage)
+
+    UpgradeManager:Upgrades("Gear", 60, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Mine", 65, 2, mineImage, selectedMineImage)
+    UpgradeManager:Upgrades("Factory", 70, 2, factoryImage, selectedFactoryImage)
+    UpgradeManager:Upgrades("Car", 75, 2, carImage, selectedCarImage)
+    UpgradeManager:Upgrades("Rocket", 80, 2, rocketImage, selectedRocketImage)
+
+    UpgradeManager:Upgrades("Gear", 85, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Mine", 90, 2, mineImage, selectedMineImage)
+    UpgradeManager:Upgrades("Factory", 95, 2, factoryImage, selectedFactoryImage)
+    UpgradeManager:Upgrades("Car", 100, 2, carImage, selectedCarImage)
+    UpgradeManager:Upgrades("Rocket", 105, 2, rocketImage, selectedRocketImage)
 end

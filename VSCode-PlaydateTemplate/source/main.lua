@@ -22,7 +22,7 @@ local upgradeGridView = pd.ui.gridview.new(32, 32)
 
 local buildingsGridView = pd.ui.gridview.new(32, 32)
 
-selectedGridView = 0
+local selectedGridView = 0
 
 --Creates the button text sprites
 function CreateButtonText()
@@ -63,7 +63,7 @@ function InitGridViews()
     upgradeGridView:setNumberOfColumns(4)
     upgradeGridView:setCellPadding(1, 1, 1, 1)
 
-    buildingsGridView:setNumberOfRows(3)
+    buildingsGridView:setNumberOfRows(4)
     buildingsGridView:setNumberOfColumns(1)
     buildingsGridView:setCellPadding(1, 1, 1, 1)
 end
@@ -114,6 +114,17 @@ function upgradeGridView:drawCell(section, row, column, selected, x, y, width, h
         --if A is pressed and selected and gearNum < cost delete
         if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index][2] then
             gearNum -= Upgrades[grid_index][2]
+            if Upgrades[grid_index][1] == "Gear" then
+                table.insert(gearMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Factory" then
+                table.insert(factoryMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Mine" then
+                table.insert(mineMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Car" then
+                table.insert(carMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Rocket" then
+                table.insert(rocketMultipliers, Upgrades[grid_index][3])
+            end
             table.remove(Upgrades, grid_index)
             UpdateDisplay()
         end
@@ -129,7 +140,7 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
 
     if selected and Buildings[grid_index] ~= nil and selectedGridView == 1 then
         --Draws the selected image
-        Buildings[grid_index][6]:draw(x, y)
+        Buildings[grid_index][8]:draw(x, y)
 
         --Draws the number of buildings owned
         local NumOfBuildingsText = Buildings[grid_index][2] .. " " .. Buildings[grid_index][1] .. "s"
@@ -161,11 +172,13 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
         if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Buildings[grid_index][3] then
             gearNum -= Buildings[grid_index][3]
             Buildings[grid_index][2] += 1
+            Buildings[grid_index][4] = Buildings[grid_index][5] * Buildings[grid_index][2]
+            Buildings[grid_index][3] = Buildings[grid_index][6] * Buildings[grid_index][2]
             UpdateDisplay()
         end
     else
         if Buildings[grid_index] ~= nil then
-            Buildings[grid_index][5]:draw(x, y)
+            Buildings[grid_index][7]:draw(x, y)
         end
     end
 end
@@ -229,5 +242,6 @@ function pd.update()
     UpgradeManager:NavigateCells()
     BuildingManager:NavigateCells()
 
+    GearCount:update()
     playdate.drawFPS(0, 0)
 end

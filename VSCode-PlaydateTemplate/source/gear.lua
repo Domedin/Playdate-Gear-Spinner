@@ -34,7 +34,7 @@ function Gear:Rotation()
     if self:getRotation() > 356 then
         self.canGetPoint = true
     elseif self:getRotation() < 10 and self.canGetPoint then
-        incrementScore()
+        incrementGearScore()
         self.canGetPoint = false
     end
 end

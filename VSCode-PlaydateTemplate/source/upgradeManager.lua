@@ -31,25 +31,25 @@ local selectedRocketImage = gfx.image.new("images/upgradeIcons/selectedRocketIco
 
 --Creates all the button information
 function UpgradeManager:createUpgrades()
-    UpgradeManager:Upgrades("Gear", 10, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Gear", 100, 2, gearImage, selectedGearImage)
     UpgradeManager:Upgrades("Mine", 15, 2, mineImage, selectedMineImage)
     UpgradeManager:Upgrades("Factory", 20, 2, factoryImage, selectedFactoryImage)
     UpgradeManager:Upgrades("Car", 25, 2, carImage, selectedCarImage)
     UpgradeManager:Upgrades("Rocket", 30, 2, rocketImage, selectedRocketImage)
 
-    UpgradeManager:Upgrades("Gear", 35, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Gear", 400, 2, gearImage, selectedGearImage)
     UpgradeManager:Upgrades("Mine", 40, 2, mineImage, selectedMineImage)
     UpgradeManager:Upgrades("Factory", 45, 2, factoryImage, selectedFactoryImage)
     UpgradeManager:Upgrades("Car", 50, 2, carImage, selectedCarImage)
     UpgradeManager:Upgrades("Rocket", 55, 2, rocketImage, selectedRocketImage)
 
-    UpgradeManager:Upgrades("Gear", 60, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Gear", 10000, 2, gearImage, selectedGearImage)
     UpgradeManager:Upgrades("Mine", 65, 2, mineImage, selectedMineImage)
     UpgradeManager:Upgrades("Factory", 70, 2, factoryImage, selectedFactoryImage)
     UpgradeManager:Upgrades("Car", 75, 2, carImage, selectedCarImage)
     UpgradeManager:Upgrades("Rocket", 80, 2, rocketImage, selectedRocketImage)
 
-    UpgradeManager:Upgrades("Gear", 85, 1.2, gearImage, selectedGearImage)
+    UpgradeManager:Upgrades("Gear", 50000, 2, gearImage, selectedGearImage)
     UpgradeManager:Upgrades("Mine", 90, 2, mineImage, selectedMineImage)
     UpgradeManager:Upgrades("Factory", 95, 2, factoryImage, selectedFactoryImage)
     UpgradeManager:Upgrades("Car", 100, 2, carImage, selectedCarImage)

@@ -4,7 +4,7 @@ local gfx <const> = pd.graphics
 class('GearCount').extends(gfx.sprite)
 
 local gearSprite
-gearNum = 757
+gearNum = 0
 
 --Creates the gear score
 function CreateScoreDisplay()
@@ -26,11 +26,15 @@ function UpdateDisplay()
     gearSprite:setImage(gearImage)
 end
 
-gearMultipliers = {}
+gearMultipliers = {1}
 
 --Adds to the gear score
 function incrementGearScore()
-    gearNum += 1
+    local gearTotalMultiplication = 1
+    for i,upgradeNum in ipairs(gearMultipliers) do
+        gearTotalMultiplication *= upgradeNum
+    end
+    gearNum += 1 * gearTotalMultiplication
     UpdateDisplay()
 end
 
@@ -38,19 +42,34 @@ function round(num, numDecimalPlaces)
     return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
 end
 
-function incrementBuildingScore()
+function UpdateGPS()
+    local buildingOneGPS = Buildings[1][5] * Buildings[1][2]
+    local buildingTwoGPS = Buildings[2][5] * Buildings[2][2]
+    local buildingThreeGPS = Buildings[3][5] * Buildings[3][2]
+    local buildingFourGPS = Buildings[4][5] * Buildings[4][2]
+    print("incremental GPS b1", Buildings[1][5])
     for i,upgradeNum in ipairs(factoryMultipliers) do
-        gearNum += Buildings[1][4] * upgradeNum
+        buildingOneGPS = buildingOneGPS * upgradeNum
+        print("building one gos", buildingOneGPS)
     end
     for i,upgradeNum in ipairs(mineMultipliers) do
-        gearNum += Buildings[2][4] * upgradeNum
+        buildingTwoGPS = buildingTwoGPS * upgradeNum
     end
     for i,upgradeNum in ipairs(carMultipliers) do
-        gearNum += Buildings[3][4] * upgradeNum
+        buildingThreeGPS = buildingThreeGPS * upgradeNum
     end
     for i,upgradeNum in ipairs(rocketMultipliers) do
-        gearNum += Buildings[4][4] * upgradeNum
-    end   
+        buildingFourGPS = buildingFourGPS * upgradeNum
+    end
+    Buildings[1][4] = buildingOneGPS
+    Buildings[2][4] = buildingTwoGPS
+    Buildings[3][4] = buildingThreeGPS
+    Buildings[4][4] = buildingFourGPS
+end
+
+function incrementBuildingScore()
+    UpdateGPS()
+    gearNum += (Buildings[1][4] + Buildings[2][4] + Buildings[3][4] + Buildings[4][4])
     gearNum = round(gearNum, 1)
     UpdateDisplay()
 end

@@ -172,8 +172,8 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
         if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Buildings[grid_index][3] then
             gearNum -= Buildings[grid_index][3]
             Buildings[grid_index][2] += 1
-            Buildings[grid_index][4] = Buildings[grid_index][5] * Buildings[grid_index][2]
-            Buildings[grid_index][3] = Buildings[grid_index][6] * Buildings[grid_index][2]
+            UpdateGPS()
+            Buildings[grid_index][3] = round(Buildings[grid_index][3] * Buildings[grid_index][6])
             UpdateDisplay()
         end
     else

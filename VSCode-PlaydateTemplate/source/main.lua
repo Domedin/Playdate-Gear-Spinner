@@ -63,7 +63,7 @@ function InitGridViews()
     upgradeGridView:setNumberOfColumns(4)
     upgradeGridView:setCellPadding(1, 1, 1, 1)
 
-    buildingsGridView:setNumberOfRows(4)
+    buildingsGridView:setNumberOfRows(5)
     buildingsGridView:setNumberOfColumns(1)
     buildingsGridView:setCellPadding(1, 1, 1, 1)
 end

@@ -4,7 +4,7 @@ local gfx <const> = pd.graphics
 class('GearCount').extends(gfx.sprite)
 
 local gearSprite
-gearNum = 0
+gearNum = 100000
 
 --Creates the gear score
 function CreateScoreDisplay()
@@ -43,33 +43,34 @@ function round(num, numDecimalPlaces)
 end
 
 function UpdateGPS()
-    local buildingOneGPS = Buildings[1][5] * Buildings[1][2]
-    local buildingTwoGPS = Buildings[2][5] * Buildings[2][2]
-    local buildingThreeGPS = Buildings[3][5] * Buildings[3][2]
-    local buildingFourGPS = Buildings[4][5] * Buildings[4][2]
-    print("incremental GPS b1", Buildings[1][5])
+    local buildingGPS = {Buildings[1][5] * Buildings[1][2], Buildings[2][5] * Buildings[2][2], Buildings[3][5] * Buildings[3][2], Buildings[4][5] * Buildings[4][2], Buildings[5][5] * Buildings[5][2]}
+    
     for i,upgradeNum in ipairs(factoryMultipliers) do
-        buildingOneGPS = buildingOneGPS * upgradeNum
-        print("building one gos", buildingOneGPS)
+        buildingGPS[1] = buildingGPS[1] * upgradeNum
     end
     for i,upgradeNum in ipairs(mineMultipliers) do
-        buildingTwoGPS = buildingTwoGPS * upgradeNum
+        buildingGPS[2] = buildingGPS[2] * upgradeNum
     end
     for i,upgradeNum in ipairs(carMultipliers) do
-        buildingThreeGPS = buildingThreeGPS * upgradeNum
+        buildingGPS[3] = buildingGPS[3] * upgradeNum
     end
     for i,upgradeNum in ipairs(rocketMultipliers) do
-        buildingFourGPS = buildingFourGPS * upgradeNum
+        buildingGPS[4] = buildingGPS[4] * upgradeNum
     end
-    Buildings[1][4] = buildingOneGPS
-    Buildings[2][4] = buildingTwoGPS
-    Buildings[3][4] = buildingThreeGPS
-    Buildings[4][4] = buildingFourGPS
+    for i,upgradeNum in ipairs(fifthMultipliers) do
+        buildingGPS[5] = buildingGPS[5] * upgradeNum
+    end
+    for i,buildingNum in ipairs(Buildings) do
+        Buildings[i][4] = buildingGPS[i]
+    end
 end
 
 function incrementBuildingScore()
-    UpdateGPS()
-    gearNum += (Buildings[1][4] + Buildings[2][4] + Buildings[3][4] + Buildings[4][4])
+    UpdateGPS() 
+    --gearNum += (Buildings[1][4] + Buildings[2][4] + Buildings[3][4] + Buildings[4][4] + Buildings[5][4])
+    for i,buildingNum in ipairs(Buildings) do 
+        gearNum += buildingNum[4]
+    end
     gearNum = round(gearNum, 1)
     UpdateDisplay()
 end

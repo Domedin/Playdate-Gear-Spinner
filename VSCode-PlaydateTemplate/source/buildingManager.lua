@@ -26,9 +26,13 @@ local carImage = gfx.image.new("Images/buildingIcons/CarBuilding")
 local selectedCarImage = gfx.image.new("Images/buildingIcons/SelectedCarBuilding")
 carMultipliers = {1}
 
-local rocketImage = gfx.image.new("Images/buildingIcons/RocketBuilding.png")
-local selectedRocketImage = gfx.image.new("Images/buildingIcons/SelectedRocketBuilding.png")
+local rocketImage = gfx.image.new("Images/buildingIcons/RocketBuilding")
+local selectedRocketImage = gfx.image.new("Images/buildingIcons/SelectedRocketBuilding")
 rocketMultipliers = {1}
+
+local fifthImage = gfx.image.new("Images/buildingIcons/5thBuilding")
+local selectedFifthImage = gfx.image.new("Images/buildingIcons/Selected5thBuilding")
+fifthMultipliers = {1}
 
 --Creates all the button information
 function BuildingManager:createUpgrades()
@@ -36,4 +40,5 @@ function BuildingManager:createUpgrades()
     BuildingManager:Upgrades("Mine", 0, 100, 0, 1, 1.15, mineImage, selectedMineImage)
     BuildingManager:Upgrades("Car", 0, 500, 0, 5, 1.15, carImage, selectedCarImage)
     BuildingManager:Upgrades("Rocket", 0, 3000, 0, 25, 1.15, rocketImage, selectedRocketImage)
+    BuildingManager:Upgrades("Fifth", 0, 6000, 0, 50, 1.15, fifthImage, selectedFifthImage)
 end

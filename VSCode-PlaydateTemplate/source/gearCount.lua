@@ -3,16 +3,23 @@ local gfx <const> = pd.graphics
 
 class('GearCount').extends(gfx.sprite)
 
-local gearSprite
-gearNum = 100000
+local gearCountSprite
+local GPSSprite
+gearNum = 0
 
 --Creates the gear score
 function CreateScoreDisplay()
-    gearSprite = gfx.sprite.new()
+    gearCountSprite = gfx.sprite.new()
     UpdateDisplay()
-    gearSprite:setCenter(0,0)
-    gearSprite:moveTo(140, 4)
-    gearSprite:add()
+    gearCountSprite:setCenter(0,0)
+    gearCountSprite:moveTo(140, 4)
+    gearCountSprite:add()
+
+    GPSSprite = gfx.sprite.new()
+    UpdateDisplay()
+    GPSSprite:setCenter(0,0)
+    GPSSprite:moveTo(200, 4)
+    GPSSprite:add()
 end
 
 --Updates the display
@@ -23,7 +30,7 @@ function UpdateDisplay()
     gfx.pushContext(gearImage)
         gfx.drawText(gearText, 0, 0)
     gfx.popContext()
-    gearSprite:setImage(gearImage)
+    gearCountSprite:setImage(gearImage)
 end
 
 gearMultipliers = {1}
@@ -43,22 +50,12 @@ function round(num, numDecimalPlaces)
 end
 
 function UpdateGPS()
-    local buildingGPS = {Buildings[1][5] * Buildings[1][2], Buildings[2][5] * Buildings[2][2], Buildings[3][5] * Buildings[3][2], Buildings[4][5] * Buildings[4][2], Buildings[5][5] * Buildings[5][2]}
-    
-    for i,upgradeNum in ipairs(factoryMultipliers) do
-        buildingGPS[1] = buildingGPS[1] * upgradeNum
-    end
-    for i,upgradeNum in ipairs(mineMultipliers) do
-        buildingGPS[2] = buildingGPS[2] * upgradeNum
-    end
-    for i,upgradeNum in ipairs(carMultipliers) do
-        buildingGPS[3] = buildingGPS[3] * upgradeNum
-    end
-    for i,upgradeNum in ipairs(rocketMultipliers) do
-        buildingGPS[4] = buildingGPS[4] * upgradeNum
-    end
-    for i,upgradeNum in ipairs(fifthMultipliers) do
-        buildingGPS[5] = buildingGPS[5] * upgradeNum
+    local buildingGPS = {Buildings[1][5] * Buildings[1][2], Buildings[2][5] * Buildings[2][2], Buildings[3][5] * Buildings[3][2], Buildings[4][5] * Buildings[4][2], Buildings[5][5] * Buildings[5][2], Buildings[6][5] * Buildings[6][2], Buildings[7][5] * Buildings[7][2], Buildings[8][5] * Buildings[8][2]}
+
+    for i,upgradeType in pairs(buildingMultipliers) do
+        for j,upgradeNum in pairs(upgradeType) do
+            buildingGPS[i] = buildingGPS[i] * upgradeNum
+        end
     end
     for i,buildingNum in ipairs(Buildings) do
         Buildings[i][4] = buildingGPS[i]
@@ -67,7 +64,6 @@ end
 
 function incrementBuildingScore()
     UpdateGPS() 
-    --gearNum += (Buildings[1][4] + Buildings[2][4] + Buildings[3][4] + Buildings[4][4] + Buildings[5][4])
     for i,buildingNum in ipairs(Buildings) do 
         gearNum += buildingNum[4]
     end

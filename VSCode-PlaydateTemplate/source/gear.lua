@@ -30,11 +30,29 @@ function Gear:Rotation()
     end
     self.angle += 1 * math.abs(angleChange)
     self:setRotation(self.angle)
-    
-    if self:getRotation() > 356 then
-        self.canGetPoint = true
-    elseif self:getRotation() < 10 and self.canGetPoint then
+
+    if self:getRotation() > 80 and self.canGetPoint then
         incrementGearScore()
         self.canGetPoint = false
+    elseif  self:getRotation() > 100 and self:getRotation() < 170 then
+        self.canGetPoint = true
+    end
+    if self:getRotation() > 170 and self.canGetPoint then
+        incrementGearScore()
+        self.canGetPoint = false
+    elseif self:getRotation() > 190 and self:getRotation() < 260 then
+        self.canGetPoint = true
+    end
+    if self:getRotation() > 260 and self.canGetPoint then
+        incrementGearScore()
+        self.canGetPoint = false
+    elseif self:getRotation() > 280 and self:getRotation() < 350 then
+        self.canGetPoint = true
+    end
+    if self:getRotation() > 350 and self.canGetPoint then
+        incrementGearScore()
+        self.canGetPoint = false
+    elseif self:getRotation() > 10 and self:getRotation() < 80 then
+        self.canGetPoint = true
     end
 end

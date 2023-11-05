@@ -63,7 +63,7 @@ function InitGridViews()
     upgradeGridView:setNumberOfColumns(4)
     upgradeGridView:setCellPadding(1, 1, 1, 1)
 
-    buildingsGridView:setNumberOfRows(5)
+    buildingsGridView:setNumberOfRows(8)
     buildingsGridView:setNumberOfColumns(1)
     buildingsGridView:setCellPadding(1, 1, 1, 1)
 end
@@ -185,49 +185,45 @@ end
 
 --navigates between all the diffrent upgrade cells
 function UpgradeManager:NavigateCells()
-    if selectedGridView == 0 then
-        local _, selectedRow, _ = upgradeGridView:getSelection()
-        local lastRow = upgradeGridView:getNumberOfRowsInSection(1)
+    local _, selectedRow, _ = upgradeGridView:getSelection()
+    local lastRow = upgradeGridView:getNumberOfRowsInSection(1)
 
-        if pd.buttonIsPressed(pd.kButtonUp) then
-            upgradeGridView:selectPreviousRow(false)
-        elseif pd.buttonIsPressed(pd.kButtonDown) then
-            if selectedRow < lastRow then
-                upgradeGridView:selectNextRow(false)
-            else
-                selectedGridView = 1
-                upgradeType:setImage(nil)
-                upgradeCost:setImage(nil)
-                upgradeMultiplier:setImage(nil)
-            end
-        elseif pd.buttonIsPressed(pd.kButtonLeft) then
-            upgradeGridView:selectPreviousColumn(false)
-        elseif pd.buttonIsPressed(pd.kButtonRight) then
-            upgradeGridView:selectNextColumn(false)
+    if pd.buttonJustPressed(pd.kButtonUp) then
+        upgradeGridView:selectPreviousRow(false)
+    elseif pd.buttonJustPressed(pd.kButtonDown) then
+        if selectedRow < lastRow then
+            upgradeGridView:selectNextRow(false)
+        else
+            selectedGridView = 1
+            upgradeType:setImage(nil)
+            upgradeCost:setImage(nil)
+            upgradeMultiplier:setImage(nil)
         end
+    elseif pd.buttonJustPressed(pd.kButtonLeft) then
+        upgradeGridView:selectPreviousColumn(false)
+    elseif pd.buttonJustPressed(pd.kButtonRight) then
+        upgradeGridView:selectNextColumn(false)
     end
 end
 
 function BuildingManager:NavigateCells()
-    if selectedGridView == 1 then
-        local _, selectedRow, _ = buildingsGridView:getSelection()
+    local _, selectedRow, _ = buildingsGridView:getSelection()
 
-        if pd.buttonIsPressed(pd.kButtonUp) then
-            if selectedRow == 1 then
-                selectedGridView = 0
-                buildingNumber:setImage(nil)
-                buildingCost:setImage(nil)
-                buildingGPS:setImage(nil)
-            else
-                buildingsGridView:selectPreviousRow(false)
-            end
-        elseif pd.buttonIsPressed(pd.kButtonDown) then
-            buildingsGridView:selectNextRow(false)
-        elseif pd.buttonIsPressed(pd.kButtonLeft) then
-            buildingsGridView:selectPreviousColumn(false)
-        elseif pd.buttonIsPressed(pd.kButtonRight) then
-            buildingsGridView:selectNextColumn(false)
+    if pd.buttonJustPressed(pd.kButtonUp) then
+        if selectedRow == 1 then
+            selectedGridView = 0
+            buildingNumber:setImage(nil)
+            buildingCost:setImage(nil)
+            buildingGPS:setImage(nil)
+        else
+            buildingsGridView:selectPreviousRow(false)
         end
+    elseif pd.buttonJustPressed(pd.kButtonDown) then
+        buildingsGridView:selectNextRow(false)
+    elseif pd.buttonJustPressed(pd.kButtonLeft) then
+        buildingsGridView:selectPreviousColumn(false)
+    elseif pd.buttonJustPressed(pd.kButtonRight) then
+        buildingsGridView:selectNextColumn(false)
     end
 end
 
@@ -239,8 +235,11 @@ function pd.update()
     upgradeGridView:drawInRect(264, 42, 136, 68)
     buildingsGridView:drawInRect(266, 113, 136, 128)
 
-    UpgradeManager:NavigateCells()
-    BuildingManager:NavigateCells()
+    if selectedGridView == 0 then
+        UpgradeManager:NavigateCells()
+    elseif selectedGridView == 1 then
+        BuildingManager:NavigateCells()
+    end
 
     GearCount:update()
     playdate.drawFPS(0, 0)

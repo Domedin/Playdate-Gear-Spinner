@@ -5,7 +5,7 @@ class('GearCount').extends(gfx.sprite)
 
 local gearCountSprite
 local GPSSprite
-gearNum = 0
+gearNum = 1000
 
 --Creates the gear score
 function CreateScoreDisplay()

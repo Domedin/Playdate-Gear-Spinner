@@ -1,14 +1,11 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
---Is just used to call functions (Is this even necessary?)
-BuildingManager = {}
-
 --The Table that stores all the upgrade information
 Buildings = {}
 
 --Adds the button information to the upgrades table
-function BuildingManager:Upgrades(buildingName, amount, cost, totalGPS, incrementalGPS, incrementalCost, imagepath, selectedImagePath)
+function Building(buildingName, amount, cost, totalGPS, incrementalGPS, incrementalCost, imagepath, selectedImagePath)
     local building = {buildingName, amount, cost, totalGPS, incrementalGPS, incrementalCost, imagepath, selectedImagePath}
     table.insert(Buildings, building)
 end
@@ -49,13 +46,34 @@ eighthMultipliers = {1}
 buildingMultipliers = {factoryMultipliers, mineMultipliers, carMultipliers, rocketMultipliers, fifthMultipliers, sixthMultipliers, seventhMultipliers, eighthMultipliers}
 
 --Creates all the button information
-function BuildingManager:createUpgrades()
-    BuildingManager:Upgrades("Factory", 0, 15, 0, 0.1, 1.15, factoryImage, selectedFactoryImage)
-    BuildingManager:Upgrades("Mine", 0, 100, 0, 0.5, 1.15, mineImage, selectedMineImage)
-    BuildingManager:Upgrades("Car", 0, 500, 0, 2, 1.15, carImage, selectedCarImage)
-    BuildingManager:Upgrades("Rocket", 0, 3000, 0, 10, 1.15, rocketImage, selectedRocketImage)
-    BuildingManager:Upgrades("Fifth", 0, 10000, 0, 40, 1.15, fifthImage, selectedFifthImage)
-    BuildingManager:Upgrades("Sixth", 0, 40000, 0, 100, 1.15, sixthImage, selectedSixthImage)
-    BuildingManager:Upgrades("Seventh", 0, 200000, 0, 400, 1.15, seventhImage, selectedSeventhImage)
-    BuildingManager:Upgrades("Eighth", 0, 1666666, 0, 6666, 1.15, eighthImage, selectedEighthImage)
+function createBuildings()
+    Building("Factory", 0, 15, 0, 0.1, 1.15, factoryImage, selectedFactoryImage)
+    Building("Mine", 0, 100, 0, 0.5, 1.15, mineImage, selectedMineImage)
+    Building("Car", 0, 1100, 0, 2, 1.15, carImage, selectedCarImage)
+    Building("Rocket", 0, 12000, 0, 10, 1.15, rocketImage, selectedRocketImage)
+    Building("Fifth", 0, 1400000, 0, 40, 1.15, fifthImage, selectedFifthImage)
+    Building("Sixth", 0, 20000000, 0, 100, 1.15, sixthImage, selectedSixthImage)
+    Building("Seventh", 0, 330000000, 0, 400, 1.15, seventhImage, selectedSeventhImage)
+    Building("Eighth", 0, 5100000000, 0, 6666, 1.15, eighthImage, selectedEighthImage)
+end
+
+function NavigateBuildingCells(gridview)
+    local _, selectedRow, _ = gridview:getSelection()
+
+    if pd.buttonJustPressed(pd.kButtonUp) then
+        if selectedRow == 1 then
+            selectedGridView = 0
+            buildingNumber:setImage(nil)
+            buildingCost:setImage(nil)
+            buildingGPS:setImage(nil)
+        else
+            gridview:selectPreviousRow(false)
+        end
+    elseif pd.buttonJustPressed(pd.kButtonDown) then
+        gridview:selectNextRow(false)
+    elseif pd.buttonJustPressed(pd.kButtonLeft) then
+        gridview:selectPreviousColumn(false)
+    elseif pd.buttonJustPressed(pd.kButtonRight) then
+        gridview:selectNextColumn(false)
+    end
 end

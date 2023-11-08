@@ -98,6 +98,14 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
                 table.insert(carMultipliers, Upgrades[grid_index][3])
             elseif Upgrades[grid_index][1] == "Rocket" then
                 table.insert(rocketMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Fifth" then
+                table.insert(fifthMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Sixth" then
+                table.insert(sixthMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Seventh" then
+                table.insert(seventhMultipliers, Upgrades[grid_index][3])
+            elseif Upgrades[grid_index][1] == "Eighth" then
+                table.insert(eightMultipliers, Upgrades[grid_index][3])
             end
             table.remove(Upgrades, grid_index)
             UpdateDisplay()

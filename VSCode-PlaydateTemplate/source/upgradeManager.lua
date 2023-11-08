@@ -26,31 +26,81 @@ local selectedCarImage = gfx.image.new("images/upgradeIcons/selectedCarIcon")
 local rocketImage = gfx.image.new("images/upgradeIcons/rocketUpgradeIcon")
 local selectedRocketImage = gfx.image.new("images/upgradeIcons/selectedRocketIcon")
 
+local fifthImage = gfx.image.new("Images/upgradeIcons/fifthUpgradeIcon")
+local selectedFifthImage = gfx.image.new("Images/upgradeIcons/selectedFifthIcon")
+
+local sixthImage = gfx.image.new("Images/upgradeIcons/sixthUpgradeIcon")
+local selectedSixthImage = gfx.image.new("Images/upgradeIcons/selectedSixthIcon")
+
+local seventhImage = gfx.image.new("Images/upgradeIcons/seventhUpgradeIcon")
+local selectedSeventhImage = gfx.image.new("Images/upgradeIcons/selectedSeventhUpgradeIcon")
+
+local eigthImage = gfx.image.new("Images/upgradeIcons/eightUpgradeIcon")
+local selectedEightImage = gfx.image.new("Images/upgradeIcons/selectedEightUpgradeIcon")
+
 --Creates all the button information
 function createUpgrades()
     insertUpgrade("Gear", 100, 2, gearImage, selectedGearImage)
-    insertUpgrade("Factory", 20, 2, factoryImage, selectedFactoryImage)
-    insertUpgrade("Mine", 15, 2, mineImage, selectedMineImage)
-    insertUpgrade("Car", 25, 2, carImage, selectedCarImage)
-    insertUpgrade("Rocket", 30, 2, rocketImage, selectedRocketImage)
-
     insertUpgrade("Gear", 400, 2, gearImage, selectedGearImage)
-    insertUpgrade("Factory", 45, 2, factoryImage, selectedFactoryImage)
-    insertUpgrade("Mine", 40, 2, mineImage, selectedMineImage)
-    insertUpgrade("Car", 50, 2, carImage, selectedCarImage)
-    insertUpgrade("Rocket", 55, 2, rocketImage, selectedRocketImage)
-
     insertUpgrade("Gear", 10000, 2, gearImage, selectedGearImage)
-    insertUpgrade("Factory", 70, 2, factoryImage, selectedFactoryImage)
-    insertUpgrade("Mine", 65, 2, mineImage, selectedMineImage)
-    insertUpgrade("Car", 75, 2, carImage, selectedCarImage)
-    insertUpgrade("Rocket", 80, 2, rocketImage, selectedRocketImage)
-
+    insertUpgrade("Gear", 500000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 50000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 500000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 5000000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 50000000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 50000000000000, 2, gearImage, selectedGearImage)
     insertUpgrade("Gear", 50000, 2, gearImage, selectedGearImage)
-    insertUpgrade("Factory", 95, 2, factoryImage, selectedFactoryImage)
-    insertUpgrade("Mine", 90, 2, mineImage, selectedMineImage)
-    insertUpgrade("Car", 100, 2, carImage, selectedCarImage)
-    insertUpgrade("Rocket", 105, 2, rocketImage, selectedRocketImage)
+    insertUpgrade("Gear", 5000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 500000000, 2, gearImage, selectedGearImage)
+    insertUpgrade("Gear", 50000000000, 2, gearImage, selectedGearImage)
+
+    insertUpgrade("Factory", 1000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 10000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 100000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 1000000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 50000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 300000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 1000000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 4000000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 20000000, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 166666600, 2, factoryImage, selectedFactoryImage)
+    insertUpgrade("Factory", 12345678900, 2, factoryImage, selectedFactoryImage)
+    
+    insertUpgrade("Mine", 5000, 2, mineImage, selectedMineImage)
+    insertUpgrade("Mine", 50000, 2, mineImage, selectedMineImage)
+    insertUpgrade("Mine", 500000, 2, mineImage, selectedMineImage)
+    insertUpgrade("Mine", 5000000, 2, mineImage, selectedMineImage)
+    
+    insertUpgrade("Car", 30000, 2, carImage, selectedCarImage)
+    insertUpgrade("Car", 300000, 2, carImage, selectedCarImage)
+    insertUpgrade("Car", 3000000, 2, carImage, selectedCarImage)
+    insertUpgrade("Car", 30000000, 2, carImage, selectedCarImage)
+
+    insertUpgrade("Rocket", 100000, 2, rocketImage, selectedRocketImage)
+    insertUpgrade("Rocket", 1000000, 2, rocketImage, selectedRocketImage)
+    insertUpgrade("Rocket", 10000000, 2, rocketImage, selectedRocketImage)
+    insertUpgrade("Rocket", 100000000, 2, rocketImage, selectedRocketImage) -- mine in sheets
+
+    insertUpgrade("Fifth", 400000, 2, fifthImage, selectedFifthImage)
+    insertUpgrade("Fifth", 4000000, 2, fifthImage, selectedFifthImage)
+    insertUpgrade("Fifth", 40000000, 2, fifthImage, selectedFifthImage)
+    insertUpgrade("Fifth", 400000000, 2, fifthImage, selectedFifthImage)
+    
+    insertUpgrade("Sixth", 2000000, 2, sixthImage, selectedSixthImage)
+    insertUpgrade("Sixth", 20000000, 2, sixthImage, selectedSixthImage)
+    insertUpgrade("Sixth", 200000000, 2, sixthImage, selectedSixthImage)
+    insertUpgrade("Sixth", 2000000000, 2, sixthImage, selectedSixthImage)
+
+    insertUpgrade("Seventh", 16666660, 2, seventhImage, selectedSeventhImage)
+    insertUpgrade("Seventh", 166666600, 2, seventhImage, selectedSeventhImage)
+    insertUpgrade("Seventh", 1666666000, 2, seventhImage, selectedSeventhImage)
+    insertUpgrade("Seventh", 16666660000, 2, seventhImage, selectedSeventhImage)
+
+    insertUpgrade("Eighth", 1234567890, 2, eigthImage, selectedEightImage)
+    insertUpgrade("Eighth", 9876543210, 2, eigthImage, selectedEightImage)
+    insertUpgrade("Eighth", 98765456789, 2, eigthImage, selectedEightImage)
+    insertUpgrade("Eighth", 1234567890000, 2, eigthImage, selectedEightImage)
+
     sortTable(Upgrades)
 end
 
@@ -77,32 +127,5 @@ function NavigateUpgradeCells(gridView)
 end
 
 function sortTable(upgradeTable)
-    local length = #upgradeTable
-    -- Tell if a should come before b
-    -- The <= to handle equal values
-
-    for pass = 1, math.huge do
-        local swapped  -- a bool to determine if we swapped this pass
-
-        for i = 1, length - 1 do
-            print("table:", upgradeTable[i][2])
-            print("i:", i)
-            print("length:", length)
-            local a = upgradeTable[i][2]
-            -- The next value, b
-            local b = upgradeTable[i + 1][2]
-            -- Tell if a should come after b
-            -- Swap if it didn't pass the order check
-            if a > b then
-                upgradeTable[i + 1] = a
-                upgradeTable[i] = b
-                swapped = true
-            end
-        end
-
-        -- Everything is sorted when there are no swaps in this pass
-        if not swapped then
-            break
-        end
-    end
+    table.sort(upgradeTable, function(a, b) return a[2] < b[2] end)
 end

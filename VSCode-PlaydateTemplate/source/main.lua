@@ -26,8 +26,30 @@ CreateButtonText()
 InitGridViews()
 
 --Calls the function to create the upgrades and buildings
-createUpgrades()
-createBuildings()
+
+--if !createdBuildings then
+    createUpgrades()
+    createBuildings()
+--end
+
+function saveGameData()
+    -- Save game data into a table first
+    local gameData = {
+        gearNumber = gearNum,
+        buildCost = {Buildings[1][3], Buildings[2][3], Buildings[3][3], Buildings[4][3], Buildings[5][3], Buildings[6][3], Buildings[7][3], Buildings[8][3]},
+        upgradesBought = {},
+    }
+    -- Serialize game data table into the datastore
+    playdate.datastore.write(gameData)
+end
+
+function playdate.gameWillTerminate()
+    saveGameData()
+end
+
+function playdate.gameWillSleep()
+    saveGameData()
+end
 
 function pd.update()
     --updates sprites and timers

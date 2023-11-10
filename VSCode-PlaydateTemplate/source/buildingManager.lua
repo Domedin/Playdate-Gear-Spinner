@@ -55,6 +55,7 @@ function createBuildings()
     Building("Sixth", 0, 20000000, 0, 100, 1.15, sixthImage, selectedSixthImage)
     Building("Seventh", 0, 330000000, 0, 400, 1.15, seventhImage, selectedSeventhImage)
     Building("Eighth", 0, 5100000000, 0, 6666, 1.15, eighthImage, selectedEighthImage)
+    createdBuildings = true
 end
 
 function NavigateBuildingCells(gridview)

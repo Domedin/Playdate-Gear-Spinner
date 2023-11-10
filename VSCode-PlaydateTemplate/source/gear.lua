@@ -10,7 +10,6 @@ function Gear:init(x, y)
     Gear.super.init(self, gearImage)
     self:moveTo(x, y)
     self:add()
-    self.rotation = 0
     self.x = x
     self.y = y
     self.angle = 0

@@ -5,7 +5,13 @@ class('GearCount').extends(gfx.sprite)
 
 local gearCountSprite
 local GPSSprite
+
+gameData = playdate.datastore.read()
+
+--if gameData == nil then
+    --print("gameData false")
 gearNum = 0
+--end
 
 --Creates the gear score
 function CreateScoreDisplay()

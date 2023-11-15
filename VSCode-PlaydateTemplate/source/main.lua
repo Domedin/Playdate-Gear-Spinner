@@ -18,20 +18,13 @@ import "gridview"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
-playdate.datastore.write(nil, 'SaveData')
-local gameData = playdate.datastore.read("SaveData")
-print("read Game data")
--- If game data has never been saved, the read value will
--- be 'nil', so check if the game data exists first
+gameData = playdate.datastore.read("SaveData")
+
 if gameData then
-    -- Populate game structures with the saved data
-    createdBuildings = gameData.createdBuildings
-    for i in pairs(data.buildCost) do
+    gearNum = gameData.gearNumber
+    for i=1, 8 do
         
     end
-    --health = gameData.currentHealth
-else
-    createdBuildings = false
 end
 
 --create gear, score, the backdrop, and creates button text
@@ -41,26 +34,21 @@ Gear(55, 55)
 CreateButtonText()
 InitGridViews()
 
---Calls the function to create the upgrades and buildings
-
-if not createdBuildings then
-    createUpgrades()
-    createBuildings()
-end
+createUpgrades()
+createBuildings()
 
 function saveGameData()
     -- Save game data into a table first
     local gameData = {
-        createdBuildings = createdBuildings,
         gearNumber = gearNum,
-        buildCost = {Buildings[1][3], Buildings[2][3], Buildings[3][3], Buildings[4][3], Buildings[5][3], Buildings[6][3], Buildings[7][3], Buildings[8][3]},
-        upgradesBought = {},
+        BuildingsOwned = {Buildings[1][2], Buildings[2][2], Buildings[3][2], Buildings[4][2], Buildings[5][2], Buildings[6][2], Buildings[7][2], Buildings[8][2],}
     }
     -- Serialize game data table into the datastore
     playdate.datastore.write(gameData, "SaveData")
 end
 
 function playdate.gameWillTerminate()
+    print("saving data")
     saveGameData()
 end
 

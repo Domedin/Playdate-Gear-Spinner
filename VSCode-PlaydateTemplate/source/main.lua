@@ -18,14 +18,22 @@ import "gridview"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
+-- other place where createUpgrades and createBuildings goes
+createUpgrades()
+createBuildings()
+
 gameData = playdate.datastore.read("SaveData")
 
 if gameData then
+    print("game data")
     gearNum = gameData.gearNumber
     for i=1, 8 do
-        
+        print(gameData.BuildingsOwned[i])
+        Buildings[i][2] = gameData.BuildingsOwned[i]
     end
 end
+
+--init place where stuff goes
 
 --create gear, score, the backdrop, and creates button text
 Background(200, 120)
@@ -34,14 +42,11 @@ Gear(55, 55)
 CreateButtonText()
 InitGridViews()
 
-createUpgrades()
-createBuildings()
-
 function saveGameData()
     -- Save game data into a table first
     local gameData = {
         gearNumber = gearNum,
-        BuildingsOwned = {Buildings[1][2], Buildings[2][2], Buildings[3][2], Buildings[4][2], Buildings[5][2], Buildings[6][2], Buildings[7][2], Buildings[8][2],}
+        BuildingsOwned = {Buildings[1][2], Buildings[2][2], Buildings[3][2], Buildings[4][2], Buildings[5][2], Buildings[6][2], Buildings[7][2], Buildings[8][2]}
     }
     -- Serialize game data table into the datastore
     playdate.datastore.write(gameData, "SaveData")

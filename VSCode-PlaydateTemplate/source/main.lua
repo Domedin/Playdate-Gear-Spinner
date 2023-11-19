@@ -18,24 +18,38 @@ import "gridview"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
--- other place where createUpgrades and createBuildings goes
+-- CreateUpgrades and createBuildings
 createUpgrades()
 createBuildings()
 
-gameData = playdate.datastore.read("SaveData")
+gameData = playdate.datastore.read()
 
 if gameData then
-    print("game data")
-    gearNum = gameData.gearNumber
-    for i=1, 8 do
-        print(gameData.BuildingsOwned[i])
-        Buildings[i][2] = gameData.BuildingsOwned[i]
+    if gameData.buildingMultipliers then
+        buildingMultipliers = gameData.buildingMultipliers
+    end
+    if gameData.buildingsBought then
+        UpgradesBought = gameData.buildingsBought
+        for i,upgradeNum in pairs(Upgrades) do
+            for j,upgradeBoughtNum in pairs(UpgradesBought) do
+                if upgradeNum[6] == upgradeBoughtNum then
+                    table.remove(Upgrades, i)
+                end
+            end
+        end
+    end
+    if gameData.gearNumber then
+        gearNum = gameData.gearNumber
+    end
+    if gameData.BuildingsOwned and gameData.buildingsCost then
+        for i=1, 8 do
+            Buildings[i][2] = gameData.BuildingsOwned[i]
+            Buildings[i][3] = gameData.buildingsCost[i]
+        end
     end
 end
 
---init place where stuff goes
-
---create gear, score, the backdrop, and creates button text
+--Create gear, score, the backdrop, and creates button text
 Background(200, 120)
 CreateScoreDisplay()
 Gear(55, 55)
@@ -46,14 +60,17 @@ function saveGameData()
     -- Save game data into a table first
     local gameData = {
         gearNumber = gearNum,
-        BuildingsOwned = {Buildings[1][2], Buildings[2][2], Buildings[3][2], Buildings[4][2], Buildings[5][2], Buildings[6][2], Buildings[7][2], Buildings[8][2]}
+        BuildingsOwned = {Buildings[1][2], Buildings[2][2], Buildings[3][2], Buildings[4][2], Buildings[5][2], Buildings[6][2], Buildings[7][2], Buildings[8][2]},
+        buildingsCost = {Buildings[1][3], Buildings[2][3], Buildings[3][3], Buildings[4][3], Buildings[5][3], Buildings[6][3], Buildings[7][3], Buildings[8][3]},
+        buildingsBought = UpgradesBought,
+        buildingMultipliers = buildingMultipliers
     }
     -- Serialize game data table into the datastore
-    playdate.datastore.write(gameData, "SaveData")
+    playdate.datastore.write(gameData)
 end
 
+-- Saves game data when leaving the game or the playdate shuts itself off
 function playdate.gameWillTerminate()
-    print("saving data")
     saveGameData()
 end
 

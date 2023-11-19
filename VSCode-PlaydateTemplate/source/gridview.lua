@@ -9,6 +9,8 @@ buildingsGridView = pd.ui.gridview.new(32, 32)
 
 selectedGridView = 0
 
+UpgradesBought = {}
+
 --Creates the button text sprites
 function CreateButtonText()
     upgradeType = gfx.sprite.new()
@@ -90,22 +92,33 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
             gearNum -= Upgrades[grid_index][2]
             if Upgrades[grid_index][1] == "Gear" then
                 table.insert(gearMultipliers, Upgrades[grid_index][3])
+                printTable(UpgradesBought)
+                print(Upgrades[grid_index][6])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Factory" then
                 table.insert(factoryMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Mine" then
                 table.insert(mineMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Car" then
                 table.insert(carMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Rocket" then
                 table.insert(rocketMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Fifth" then
                 table.insert(fifthMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Sixth" then
                 table.insert(sixthMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Seventh" then
                 table.insert(seventhMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Eighth" then
                 table.insert(eightMultipliers, Upgrades[grid_index][3])
+                table.insert(UpgradesBought, Upgrades[grid_index][6])
             end
             table.remove(Upgrades, grid_index)
             UpdateDisplay()

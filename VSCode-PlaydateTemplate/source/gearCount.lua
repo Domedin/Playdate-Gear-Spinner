@@ -60,6 +60,7 @@ function UpdateGPS()
             buildingGPS[i] = buildingGPS[i] * upgradeNum
         end
     end
+    
     for i,buildingNum in ipairs(Buildings) do
         Buildings[i][4] = buildingGPS[i]
     end

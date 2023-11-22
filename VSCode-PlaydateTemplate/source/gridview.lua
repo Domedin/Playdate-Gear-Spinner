@@ -7,7 +7,9 @@ upgradesGridView = pd.ui.gridview.new(32, 32)
 
 buildingsGridView = pd.ui.gridview.new(32, 32)
 
-selectedGridView = 0
+prestiegeGridview = pd.ui.gridview.new(32, 32)
+
+selectedGridView = 2
 
 UpgradesBought = {}
 
@@ -42,6 +44,16 @@ function CreateButtonText()
     buildingGPS:setCenter(0,0)
     buildingGPS:moveTo(132, 83)
     buildingGPS:add()
+
+    PrestiegePointsSprite = gfx.sprite.new()
+    PrestiegePointsSprite:setCenter(0,0)
+    PrestiegePointsSprite:moveTo(132, 43)
+    PrestiegePointsSprite:add()
+
+    totalPrestiegePointsSprite = gfx.sprite.new()
+    totalPrestiegePointsSprite:setCenter(0,0)
+    totalPrestiegePointsSprite:moveTo(132, 63)
+    totalPrestiegePointsSprite:add()
 end
 
 --Manages the gridview
@@ -53,13 +65,41 @@ function InitGridViews()
     buildingsGridView:setNumberOfRows(8)
     buildingsGridView:setNumberOfColumns(1)
     buildingsGridView:setCellPadding(1, 1, 1, 1)
+
+    prestiegeGridview:setNumberOfRows(1)
+    prestiegeGridview:setNumberOfColumns(2)
+    prestiegeGridview:setCellPadding(1, 1, 1, 1)
+end
+
+function prestiegeGridview:drawCell(section, row, column, selected, x, y, width, height)
+    if selectedGridView == 1 and selected then
+        selectedPrestiegeImage:draw(x, y)
+        print("Should be drawing...")
+        local prestiegePointsText = prestiegePoints .. " Points"
+        local prestiegePointsTextWidth, prestiegePointsTextHeight = gfx.getTextSize(prestiegePointsText)
+        local prestiegePointsTextImage = gfx.image.new(prestiegePointsTextWidth, prestiegePointsTextHeight)
+        gfx.pushContext(prestiegePointsTextImage)
+            gfx.drawText(prestiegePointsText, 0, 0)
+        gfx.popContext()
+        PrestiegePointsSprite:setImage(prestiegePointsTextImage)
+
+        local totalPrestiegePointsText = totalPrestiegePoints .. " Total Points"
+        local totalPrestiegePointsTextWidth, totalPrestiegePointsTextHeight = gfx.getTextSize(totalPrestiegePointsText)
+        local totalPrestiegePointsTextImage = gfx.image.new(totalPrestiegePointsTextWidth, totalPrestiegePointsTextHeight)
+        gfx.pushContext(totalPrestiegePointsTextImage)
+            gfx.drawText(totalPrestiegePointsText, 0, 0)
+        gfx.popContext()
+        totalPrestiegePointsSprite:setImage(totalPrestiegePointsTextImage)
+    else
+        prestiegeImage:draw(x, y)
+    end
 end
 
 --Draws every cell based on the Upgrades Table
 function upgradesGridView:drawCell(section, row, column, selected, x, y, width, height)
     local grid_index = (row - 1) * 4 + column
 
-    if selected and Upgrades[grid_index] ~= nil and selectedGridView == 0 then
+    if selected and Upgrades[grid_index] ~= nil and selectedGridView == 2 then
         --Draws the selected image
         Upgrades[grid_index][5]:draw(x, y)
 
@@ -92,8 +132,6 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
             gearNum -= Upgrades[grid_index][2]
             if Upgrades[grid_index][1] == "Gear" then
                 table.insert(gearMultipliers, Upgrades[grid_index][3])
-                printTable(UpgradesBought)
-                print(Upgrades[grid_index][6])
                 table.insert(UpgradesBought, Upgrades[grid_index][6])
             elseif Upgrades[grid_index][1] == "Factory" then
                 table.insert(factoryMultipliers, Upgrades[grid_index][3])
@@ -133,7 +171,7 @@ end
 function buildingsGridView:drawCell(section, row, column, selected, x, y, width, height)
     local grid_index = (row - 1) * 1 + column
 
-    if selected and Buildings[grid_index] ~= nil and selectedGridView == 1 then
+    if selected and Buildings[grid_index] ~= nil and selectedGridView == 3 then
         --Draws the selected image
         Buildings[grid_index][8]:draw(x, y)
 

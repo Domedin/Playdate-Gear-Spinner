@@ -63,7 +63,7 @@ function NavigateBuildingCells(gridview)
 
     if pd.buttonJustPressed(pd.kButtonUp) then
         if selectedRow == 1 then
-            selectedGridView = 0
+            selectedGridView = 2
             buildingNumber:setImage(nil)
             buildingCost:setImage(nil)
             buildingGPS:setImage(nil)

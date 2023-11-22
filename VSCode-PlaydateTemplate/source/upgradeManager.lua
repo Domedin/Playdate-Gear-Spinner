@@ -109,12 +109,19 @@ function NavigateUpgradeCells(gridView)
     local lastRow = gridView:getNumberOfRowsInSection(1)
 
     if pd.buttonJustPressed(pd.kButtonUp) then
-        gridView:selectPreviousRow(false)
+        if selectedRow == 1 then
+            selectedGridView = 1
+            upgradeType:setImage(nil)
+            upgradeCost:setImage(nil)
+            upgradeMultiplier:setImage(nil)
+        else
+            gridView:selectPreviousRow(false)
+        end
     elseif pd.buttonJustPressed(pd.kButtonDown) then
         if selectedRow < lastRow then
             gridView:selectNextRow(false)
         else
-            selectedGridView = 1
+            selectedGridView = 3
             upgradeType:setImage(nil)
             upgradeCost:setImage(nil)
             upgradeMultiplier:setImage(nil)

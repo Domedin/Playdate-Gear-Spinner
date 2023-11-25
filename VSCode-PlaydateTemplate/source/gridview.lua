@@ -101,9 +101,12 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
 
     if selected and Upgrades[grid_index] ~= nil and selectedGridView == 2 then
         --Draws the selected image
-        Upgrades[grid_index][5]:draw(x, y)
+        printTable(Upgrades[grid_index])
+        print(Upgrades[grid_index].NUM)
+        print(Upgrades[grid_index].SELECTEDIMAGE)
+        Upgrades[grid_index].SELECTEDIMAGE:draw(x, y)
 
-        local typeText = Upgrades[grid_index][1] .. " Upgrade"
+        local typeText = Upgrades[grid_index].TYPE .. " Upgrade"
         local typeTextWidth, typeTextHeight = gfx.getTextSize(typeText)
         local typeTextImage = gfx.image.new(typeTextWidth, typeTextHeight)
         gfx.pushContext(typeTextImage)
@@ -111,7 +114,7 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         gfx.popContext()
         upgradeType:setImage(typeTextImage)
 
-        local costText =  "Cost: " .. Upgrades[grid_index][2]
+        local costText =  "Cost: " .. Upgrades[grid_index].COST
         local costTextWidth, costTextHeight = gfx.getTextSize(costText)
         local costTextImage = gfx.image.new(costTextWidth, costTextHeight)
         gfx.pushContext(costTextImage)
@@ -119,7 +122,7 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         gfx.popContext()
         upgradeCost:setImage(costTextImage)
 
-        local multiplierText =  "Multiplier: " .. Upgrades[grid_index][3] .. "x"
+        local multiplierText =  "Multiplier: " .. Upgrades[grid_index].MULTIPLIER .. "x"
         local multiplierTextWidth, multiplierTextHeight = gfx.getTextSize(multiplierText)
         local multiplierTextImage = gfx.image.new(multiplierTextWidth, multiplierTextHeight)
         gfx.pushContext(multiplierTextImage)
@@ -128,42 +131,42 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         upgradeMultiplier:setImage(multiplierTextImage)
 
         --if A is pressed and selected and gearNum < cost delete
-        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index][2] then
-            gearNum -= Upgrades[grid_index][2]
-            if Upgrades[grid_index][1] == "Gear" then
-                table.insert(gearMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Factory" then
-                table.insert(factoryMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Mine" then
-                table.insert(mineMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Car" then
-                table.insert(carMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Rocket" then
-                table.insert(rocketMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Fifth" then
-                table.insert(fifthMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Sixth" then
-                table.insert(sixthMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Seventh" then
-                table.insert(seventhMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
-            elseif Upgrades[grid_index][1] == "Eighth" then
-                table.insert(eightMultipliers, Upgrades[grid_index][3])
-                table.insert(UpgradesBought, Upgrades[grid_index][6])
+        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index].COST then
+            gearNum -= Upgrades[grid_index].COST
+            if Upgrades[grid_index].TYPE == 1 then
+                table.insert(gearMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index].TYPE == 2 then
+                table.insert(factoryMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index].TYPE == 3 then
+                table.insert(mineMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index].TYPE == 4 then
+                table.insert(carMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index][1] == 5 then
+                table.insert(rocketMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index][1] == 6 then
+                table.insert(fifthMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index][1] == 7 then
+                table.insert(sixthMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index][1] == 8 then
+                table.insert(seventhMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
+            elseif Upgrades[grid_index][1] == 9 then
+                table.insert(eightMultipliers, Upgrades[grid_index].MULTIPLIER)
+                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
             end
             table.remove(Upgrades, grid_index)
             UpdateDisplay()
         end
     else
         if Upgrades[grid_index] ~= nil then
-            Upgrades[grid_index][4]:draw(x, y)
+            Upgrades[grid_index].IMAGE:draw(x, y)
         end
     end
 end
@@ -173,10 +176,10 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
 
     if selected and Buildings[grid_index] ~= nil and selectedGridView == 3 then
         --Draws the selected image
-        Buildings[grid_index][8]:draw(x, y)
+        Buildings[grid_index].SELECTEDIMAGE:draw(x, y)
 
         --Draws the number of buildings owned
-        local NumOfBuildingsText = Buildings[grid_index][2] .. " " .. Buildings[grid_index][1] .. "s"
+        local NumOfBuildingsText = Buildings[grid_index].AMOUNT .. " " .. Buildings[grid_index].NAME .. "s"
         local typeTextWidth, typeTextHeight = gfx.getTextSize(NumOfBuildingsText)
         local buildingsNumTextImage = gfx.image.new(typeTextWidth, typeTextHeight)
         gfx.pushContext(buildingsNumTextImage)
@@ -185,7 +188,7 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
         buildingNumber:setImage(buildingsNumTextImage)
 
         --Draws the cost of the buildings
-        local buildingCostText =  "Cost: " .. Buildings[grid_index][3]
+        local buildingCostText =  "Cost: " .. Buildings[grid_index].COST
         local buildingCostTextWidth, buildingCostTextHeight = gfx.getTextSize(buildingCostText)
         local buildingCostTextImage = gfx.image.new(buildingCostTextWidth, buildingCostTextHeight)
         gfx.pushContext(buildingCostTextImage)
@@ -194,7 +197,7 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
         buildingCost:setImage(buildingCostTextImage)
 
         --Draws the GPS of the buildings
-        local buildingGPSText =  "GPS: " .. Buildings[grid_index][4]
+        local buildingGPSText =  "GPS: " .. Buildings[grid_index].TOTALGPS
         local buildingGPSTextWidth, buildingGPSTextHeight = gfx.getTextSize(buildingGPSText)
         local buildingGPSTextImage = gfx.image.new(buildingGPSTextWidth, buildingGPSTextHeight)
         gfx.pushContext(buildingGPSTextImage)
@@ -202,16 +205,16 @@ function buildingsGridView:drawCell(section, row, column, selected, x, y, width,
         gfx.popContext()
         buildingGPS:setImage(buildingGPSTextImage)
 
-        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Buildings[grid_index][3] then
-            gearNum -= Buildings[grid_index][3]
-            Buildings[grid_index][2] += 1
+        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Buildings[grid_index].COST then
+            gearNum -= Buildings[grid_index].COST
+            Buildings[grid_index].AMOUNT += 1
             UpdateGPS()
-            Buildings[grid_index][3] = round(Buildings[grid_index][3] * Buildings[grid_index][6])
+            Buildings[grid_index].COST = round(Buildings[grid_index].COST * Buildings[grid_index].INCREMENTALCOST)
             UpdateDisplay()
         end
     else
         if Buildings[grid_index] ~= nil then
-            Buildings[grid_index][7]:draw(x, y)
+            Buildings[grid_index].IMAGE:draw(x, y)
         end
     end
 end

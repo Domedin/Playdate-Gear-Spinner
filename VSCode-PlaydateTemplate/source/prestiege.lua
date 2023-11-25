@@ -5,10 +5,12 @@ local gfx <const> = pd.graphics
 prestiegePoints = 0
 totalPrestiegePoints = 0
 
+--Creates the images of the prestiege button
 prestiegeImage = gfx.image.new("Images/upgradeIcons/prestiegeIcon")
 selectedPrestiegeImage = gfx.image.new("Images/upgradeIcons/SelectedPrestiegeIcon")
 
-function NavigatePrestiegeCells(gridView)
+--Navigates the prestiege Cell
+function NavigatePrestiegeCell(gridView)
     if pd.buttonJustPressed(pd.kButtonDown) then
         selectedGridView = 2
         PrestiegePointsSprite:setImage(nil)

@@ -53,23 +53,23 @@ function round(num, numDecimalPlaces)
 end
 
 function UpdateGPS()
-    local buildingGPS = {Buildings[1][5] * Buildings[1][2], Buildings[2][5] * Buildings[2][2], Buildings[3][5] * Buildings[3][2], Buildings[4][5] * Buildings[4][2], Buildings[5][5] * Buildings[5][2], Buildings[6][5] * Buildings[6][2], Buildings[7][5] * Buildings[7][2], Buildings[8][5] * Buildings[8][2]}
+    local buildingGPS = {Buildings[1].INCREMENTALGPS * Buildings[1].AMOUNT, Buildings[2].INCREMENTALGPS * Buildings[2].AMOUNT, Buildings[3].INCREMENTALGPS * Buildings[3].AMOUNT, Buildings[4].INCREMENTALGPS * Buildings[4].AMOUNT, Buildings[5].INCREMENTALGPS * Buildings[5].AMOUNT, Buildings[6].INCREMENTALGPS * Buildings[6].AMOUNT, Buildings[7].INCREMENTALGPS * Buildings[7].AMOUNT, Buildings[8].INCREMENTALGPS * Buildings[8].AMOUNT}
 
     for i,upgradeType in pairs(buildingMultipliers) do
         for j,upgradeNum in pairs(upgradeType) do
             buildingGPS[i] = buildingGPS[i] * upgradeNum
         end
     end
-    
+
     for i,buildingNum in ipairs(Buildings) do
-        Buildings[i][4] = buildingGPS[i]
+        Buildings[i].TOTALGPS = buildingGPS[i]
     end
 end
 
 function incrementBuildingScore()
     UpdateGPS() 
     for i,buildingNum in ipairs(Buildings) do 
-        gearNum += buildingNum[4]
+        gearNum += buildingNum.TOTALGPS
     end
     gearNum = round(gearNum, 1)
     UpdateDisplay()

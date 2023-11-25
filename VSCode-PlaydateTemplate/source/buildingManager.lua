@@ -5,8 +5,8 @@ local gfx <const> = pd.graphics
 Buildings = {}
 
 --Adds the button information to the upgrades table
-function Building(buildingName, amount, cost, totalGPS, incrementalGPS, incrementalCost, imagepath, selectedImagePath)
-    local building = {buildingName, amount, cost, totalGPS, incrementalGPS, incrementalCost, imagepath, selectedImagePath}
+function Building(name, amount, cost, totalGPS, incrementalGPS, incrementalCost, image, selectedImage)
+    local building = {NAME = name, AMOUNT = amount, COST = cost, TOTALGPS = totalGPS, INCREMENTALGPS = incrementalGPS, INCREMENTALCOST = incrementalCost, IMAGE = image, SELECTEDIMAGE = selectedImage}
     table.insert(Buildings, building)
 end
 
@@ -58,6 +58,7 @@ function createBuildings()
     createdBuildings = true
 end
 
+--navigates the building cells
 function NavigateBuildingCells(gridview)
     local _, selectedRow, _ = gridview:getSelection()
 

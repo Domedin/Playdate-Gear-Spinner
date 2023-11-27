@@ -74,7 +74,6 @@ end
 function prestiegeGridview:drawCell(section, row, column, selected, x, y, width, height)
     if selectedGridView == 1 and selected then
         selectedPrestiegeImage:draw(x, y)
-        print("Should be drawing...")
         local prestiegePointsText = prestiegePoints .. " Points"
         local prestiegePointsTextWidth, prestiegePointsTextHeight = gfx.getTextSize(prestiegePointsText)
         local prestiegePointsTextImage = gfx.image.new(prestiegePointsTextWidth, prestiegePointsTextHeight)
@@ -101,9 +100,6 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
 
     if selected and Upgrades[grid_index] ~= nil and selectedGridView == 2 then
         --Draws the selected image
-        printTable(Upgrades[grid_index])
-        print(Upgrades[grid_index].NUM)
-        print(Upgrades[grid_index].SELECTEDIMAGE)
         Upgrades[grid_index].SELECTEDIMAGE:draw(x, y)
 
         local typeText = Upgrades[grid_index].TYPE .. " Upgrade"
@@ -133,32 +129,11 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         --if A is pressed and selected and gearNum < cost delete
         if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index].COST then
             gearNum -= Upgrades[grid_index].COST
-            if Upgrades[grid_index].TYPE == 1 then
+            if Upgrades[grid_index].TYPE == "Gear" then
                 table.insert(gearMultipliers, Upgrades[grid_index].MULTIPLIER)
                 table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index].TYPE == 2 then
-                table.insert(factoryMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index].TYPE == 3 then
-                table.insert(mineMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index].TYPE == 4 then
-                table.insert(carMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index][1] == 5 then
-                table.insert(rocketMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index][1] == 6 then
-                table.insert(fifthMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index][1] == 7 then
-                table.insert(sixthMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index][1] == 8 then
-                table.insert(seventhMultipliers, Upgrades[grid_index].MULTIPLIER)
-                table.insert(UpgradesBought, Upgrades[grid_index].NUM)
-            elseif Upgrades[grid_index][1] == 9 then
-                table.insert(eightMultipliers, Upgrades[grid_index].MULTIPLIER)
+            else
+                table.insert(buildingMultipliers[Upgrades[grid_index].TYPE], Upgrades[grid_index].MULTIPLIER)
                 table.insert(UpgradesBought, Upgrades[grid_index].NUM)
             end
             table.remove(Upgrades, grid_index)

@@ -3,11 +3,6 @@ local gfx <const> = pd.graphics
 
 class('GearCount').extends(gfx.sprite)
 
-local gearCountSprite
-local GPSSprite
-
-gameData = playdate.datastore.read()
-
 gearNum = 0
 
 --Creates the gear score
@@ -53,22 +48,26 @@ function round(num, numDecimalPlaces)
 end
 
 function UpdateGPS()
-    local buildingGPS = {Buildings[1].INCREMENTALGPS * Buildings[1].AMOUNT, Buildings[2].INCREMENTALGPS * Buildings[2].AMOUNT, Buildings[3].INCREMENTALGPS * Buildings[3].AMOUNT, Buildings[4].INCREMENTALGPS * Buildings[4].AMOUNT, Buildings[5].INCREMENTALGPS * Buildings[5].AMOUNT, Buildings[6].INCREMENTALGPS * Buildings[6].AMOUNT, Buildings[7].INCREMENTALGPS * Buildings[7].AMOUNT, Buildings[8].INCREMENTALGPS * Buildings[8].AMOUNT}
-
-    for i,upgradeType in pairs(buildingMultipliers) do
-        for j,upgradeNum in pairs(upgradeType) do
-            buildingGPS[i] = buildingGPS[i] * upgradeNum
+    --adds the total GPS of each building to one big GPS 
+    local buildingGPS = {}
+    for i,GPSNum in pairs(Buildings) do
+        table.insert(buildingGPS, Buildings[i].INCREMENTALGPS * Buildings[i].AMOUNT)
+    end
+    --multiplies each GPS by the multiplier
+    for i,multiplierType in pairs(buildingMultipliers) do
+        for j,multiplierNum in pairs(multiplierType) do
+            buildingGPS[i] *= multiplierNum
         end
     end
-
     for i,buildingNum in ipairs(Buildings) do
         Buildings[i].TOTALGPS = buildingGPS[i]
     end
 end
 
 function incrementBuildingScore()
-    UpdateGPS() 
-    for i,buildingNum in ipairs(Buildings) do 
+    UpdateGPS()
+    --adds the total GPS of each building to the gearNum
+    for i,buildingNum in ipairs(Buildings) do
         gearNum += buildingNum.TOTALGPS
     end
     gearNum = round(gearNum, 1)
@@ -76,6 +75,7 @@ function incrementBuildingScore()
 end
 
 local lastSecond = -1
+--adds the building GPS to the gearNum on a timer
 function GearCount:update()
     local currentSecond = math.floor(playdate.getElapsedTime())
     if currentSecond ~= lastSecond then

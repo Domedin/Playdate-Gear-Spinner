@@ -18,6 +18,7 @@ end
 
 function Gear:update()
     self:Rotate()
+    self:RotationScore()
 end
 
 --Spins the gear based on how quickly the crank is spun

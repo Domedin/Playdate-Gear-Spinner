@@ -89,6 +89,10 @@ function prestiegeGridview:drawCell(section, row, column, selected, x, y, width,
             gfx.drawText(totalPrestiegePointsText, 0, 0)
         gfx.popContext()
         totalPrestiegePointsSprite:setImage(totalPrestiegePointsTextImage)
+
+        if pd.buttonJustPressed(pd.kButtonA) then
+            
+        end
     else
         prestiegeImage:draw(x, y)
     end

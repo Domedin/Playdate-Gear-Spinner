@@ -7,28 +7,41 @@ gearNum = 0
 
 --Creates the gear score
 function CreateScoreDisplay()
+    print("Create the fuckers")
     gearCountSprite = gfx.sprite.new()
-    UpdateDisplay()
     gearCountSprite:setCenter(0,0)
-    gearCountSprite:moveTo(140, 4)
+    gearCountSprite:moveTo(140, 2)
     gearCountSprite:add()
 
     GPSSprite = gfx.sprite.new()
-    UpdateDisplay()
     GPSSprite:setCenter(0,0)
-    GPSSprite:moveTo(200, 4)
+    GPSSprite:moveTo(139, 20)
     GPSSprite:add()
+    UpdateDisplay()
 end
 
 --Updates the display
 function UpdateDisplay()
+    print("Update Display")
     local gearText = "Gears: " .. gearNum
-    local textWidth, textHeight = gfx.getTextSize(gearText)
-    local gearImage = gfx.image.new(textWidth, textHeight)
+    local gearTextWidth, gearTextHeight = gfx.getTextSize(gearText)
+    local gearImage = gfx.image.new(gearTextWidth, gearTextHeight)
     gfx.pushContext(gearImage)
         gfx.drawText(gearText, 0, 0)
     gfx.popContext()
     gearCountSprite:setImage(gearImage)
+
+    local totalGPS = 0
+    for i,buildingNum in ipairs(Buildings) do
+        totalGPS += buildingNum.TOTALGPS
+    end
+    local GPSText = "Total GPS: " .. totalGPS
+    local GPSTextWidth, GPSTextHeight = gfx.getTextSize(GPSText)
+    local GPSImage = gfx.image.new(GPSTextWidth, GPSTextHeight)
+    gfx.pushContext(GPSImage)
+        gfx.drawText(GPSText, 0, 0)
+    gfx.popContext()
+    GPSSprite:setImage(GPSImage)
 end
 
 gearMultipliers = {1}

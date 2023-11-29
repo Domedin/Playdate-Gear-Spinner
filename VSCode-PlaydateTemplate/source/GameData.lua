@@ -10,30 +10,32 @@ function LoadGameData()
             buildingMultipliers = gameData.buildingMultipliers
         end
 
-        UpgradesBought = gameData.upgradesBought
-        for _, value in pairs(UpgradesBought) do
-            -- the value is the id of the upgrade that was bought
-            -- the key is arbitrary
-            -- consider instead when the player buys an upgrade storing this like 
-            -- gameData.upgradesBought[index] = true instead of using table.insert(gameData.upgradesBought, index)
-            -- this way you still have some unsorted list of indexes but you can also go
-            -- did the player buy upgrade index x? -> if gameData.upgradesBought[x] then
-        
-            local upgradesToDelete = {}
-            for key,upgradeData in pairs(Upgrades) do
-                -- item 6 is the index - maybe store these by index too? Then you can just go
-                -- Upgrades[value] = nil
-                -- ionstead we have to iterate over them all each time.
-                if upgradeData.NUM == value then
-                    upgradesToDelete[key] = true
+        if gameData.upgradesBought then
+            UpgradesBought = gameData.upgradesBought
+            for _, value in pairs(UpgradesBought) do
+                -- the value is the id of the upgrade that was bought
+                -- the key is arbitrary
+                -- consider instead when the player buys an upgrade storing this like 
+                -- gameData.upgradesBought[index] = true instead of using table.insert(gameData.upgradesBought, index)
+                -- this way you still have some unsorted list of indexes but you can also go
+                -- did the player buy upgrade index x? -> if gameData.upgradesBought[x] then
+                      
+                local upgradesToDelete = {}
+                for key,upgradeData in pairs(Upgrades) do
+                    -- item 6 is the index - maybe store these by index too? Then you can just go
+                    -- Upgrades[value] = nil
+                    -- ionstead we have to iterate over them all each time.
+                    if upgradeData.NUM == value then
+                        upgradesToDelete[key] = true
+                    end
                 end
-            end
-            for key,__ in pairs(upgradesToDelete) do
-                Upgrades[key] = nil
-            end
-            for i = tablelength(Upgrades), 1,-1 do
-                if Upgrades[i] == nil then
-                    table.remove(Upgrades, i)
+                for key,__ in pairs(upgradesToDelete) do
+                    Upgrades[key] = nil
+                end
+                for i = tablelength(Upgrades), 1,-1 do
+                    if Upgrades[i] == nil then
+                        table.remove(Upgrades, i)
+                    end
                 end
             end
         end

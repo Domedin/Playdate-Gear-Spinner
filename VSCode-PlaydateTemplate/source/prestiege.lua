@@ -17,3 +17,18 @@ function NavigatePrestiegeCell(gridView)
         totalPrestiegePointsSprite:setImage(nil)
     end
 end
+
+function AddPrestiegePoints()
+    if prestiegePoints < 1 then
+        if gearNum > 1000000 then
+            prestiegePoints += 1
+        end
+    elseif prestiegePoints < 2 then
+        if gearNum > 2000000 then
+            prestiegePoints += 1
+        end
+    elseif gearNum > 1000000 * prestiegePoints then
+        print(1000000 * prestiegePoints)
+        prestiegePoints += 1
+    end
+end

@@ -66,6 +66,9 @@ function pd.update()
     --adds to the gear count each frame.
     GearCount:update()
 
+    --Adds prestiege points whenever there are enough gears
+    AddPrestiegePoints()
+
     --draws FPS for developer
     playdate.drawFPS(0, 0)
 end

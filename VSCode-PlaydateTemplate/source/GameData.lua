@@ -19,7 +19,7 @@ function LoadGameData()
                 -- gameData.upgradesBought[index] = true instead of using table.insert(gameData.upgradesBought, index)
                 -- this way you still have some unsorted list of indexes but you can also go
                 -- did the player buy upgrade index x? -> if gameData.upgradesBought[x] then
-                      
+
                 local upgradesToDelete = {}
                 for key,upgradeData in pairs(Upgrades) do
                     -- item 6 is the index - maybe store these by index too? Then you can just go
@@ -59,6 +59,21 @@ function tablelength(T)
     local count = 0
     for _ in pairs(T) do count = count + 1 end
     return count
+end
+
+function Prestiege()
+    totalPrestiegePoints = prestiegePoints
+    prestiegePoints = 0
+    gearNum = 0
+    for i,multiplierType in pairs(Buildings) do
+        Buildings[i].AMOUNT = 0
+        Buildings[i].COST = Buildings[i].INTIALCOST
+    end
+    buildingsCost = nil
+    UpgradesBought = nil
+    buildingMultipliers = {{1},{1},{1},{1},{1},{1},{1},{1}}
+    Upgrades = {}
+    createUpgrades()
 end
 
 function saveGameData()

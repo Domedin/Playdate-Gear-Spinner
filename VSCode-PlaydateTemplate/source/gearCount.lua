@@ -7,7 +7,6 @@ gearNum = 0
 
 --Creates the gear score
 function CreateScoreDisplay()
-    print("Create the fuckers")
     gearCountSprite = gfx.sprite.new()
     gearCountSprite:setCenter(0,0)
     gearCountSprite:moveTo(140, 2)
@@ -22,7 +21,6 @@ end
 
 --Updates the display
 function UpdateDisplay()
-    print("Update Display")
     local gearText = "Gears: " .. gearNum
     local gearTextWidth, gearTextHeight = gfx.getTextSize(gearText)
     local gearImage = gfx.image.new(gearTextWidth, gearTextHeight)
@@ -49,7 +47,7 @@ gearMultipliers = {1}
 --Adds to the gear score
 function incrementGearScore()
     local gearTotalMultiplication = 1
-    for i,upgradeNum in ipairs(gearMultipliers) do
+    for i,upgradeNum in pairs(gearMultipliers) do
         gearTotalMultiplication *= upgradeNum
     end
     gearNum += 1 * gearTotalMultiplication
@@ -73,7 +71,7 @@ function UpdateGPS()
         end
     end
     for i,buildingNum in ipairs(Buildings) do
-        Buildings[i].TOTALGPS = buildingGPS[i]
+        Buildings[i].TOTALGPS = buildingGPS[i] * (1 + (totalPrestiegePoints * 0.01))
     end
 end
 

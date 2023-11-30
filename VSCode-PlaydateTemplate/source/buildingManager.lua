@@ -5,8 +5,8 @@ local gfx <const> = pd.graphics
 Buildings = {}
 
 --Adds the button information to the upgrades table
-function Building(name, amount, cost, totalGPS, incrementalGPS, incrementalCost, image, selectedImage)
-    local building = {NAME = name, AMOUNT = amount, COST = cost, TOTALGPS = totalGPS, INCREMENTALGPS = incrementalGPS, INCREMENTALCOST = incrementalCost, IMAGE = image, SELECTEDIMAGE = selectedImage}
+function Building(name, amount, cost, totalGPS, incrementalGPS, incrementalCost, image, selectedImage, intialCost)
+    local building = {NAME = name, AMOUNT = amount, COST = cost, TOTALGPS = totalGPS, INCREMENTALGPS = incrementalGPS, INCREMENTALCOST = incrementalCost, IMAGE = image, SELECTEDIMAGE = selectedImage, INTIALCOST = intialCost}
     table.insert(Buildings, building)
 end
 
@@ -47,14 +47,14 @@ buildingMultipliers = {factoryMultipliers, mineMultipliers, carMultipliers, rock
 
 --Creates all the button information
 function createBuildings()
-    Building("Factory", 0, 15, 0, 0.1, 1.15, factoryImage, selectedFactoryImage)
-    Building("Mine", 0, 100, 0, 0.5, 1.15, mineImage, selectedMineImage)
-    Building("Car", 0, 1100, 0, 2, 1.15, carImage, selectedCarImage)
-    Building("Rocket", 0, 12000, 0, 10, 1.15, rocketImage, selectedRocketImage)
-    Building("Fifth", 0, 1400000, 0, 40, 1.15, fifthImage, selectedFifthImage)
-    Building("Sixth", 0, 20000000, 0, 100, 1.15, sixthImage, selectedSixthImage)
-    Building("Seventh", 0, 330000000, 0, 400, 1.15, seventhImage, selectedSeventhImage)
-    Building("Eighth", 0, 5100000000, 0, 6666, 1.15, eighthImage, selectedEighthImage)
+    Building("Factory", 0, 15, 0, 0.1, 1.15, factoryImage, selectedFactoryImage, 15)
+    Building("Mine", 0, 100, 0, 0.5, 1.15, mineImage, selectedMineImage, 100)
+    Building("Car", 0, 1100, 0, 2, 1.15, carImage, selectedCarImage, 1100)
+    Building("Rocket", 0, 12000, 0, 10, 1.15, rocketImage, selectedRocketImage, 12000)
+    Building("Fifth", 0, 1400000, 0, 40, 1.15, fifthImage, selectedFifthImage, 1400000)
+    Building("Sixth", 0, 20000000, 0, 100, 1.15, sixthImage, selectedSixthImage, 20000000)
+    Building("Seventh", 0, 330000000, 0, 400, 1.15, seventhImage, selectedSeventhImage, 330000000)
+    Building("Eighth", 0, 5100000000, 0, 6666, 1.15, eighthImage, selectedEighthImage, 5100000000)
 end
 
 --navigates the building cells

@@ -91,7 +91,7 @@ function prestiegeGridview:drawCell(section, row, column, selected, x, y, width,
         totalPrestiegePointsSprite:setImage(totalPrestiegePointsTextImage)
 
         if pd.buttonJustPressed(pd.kButtonA) then
-            
+            Prestiege()
         end
     else
         prestiegeImage:draw(x, y)

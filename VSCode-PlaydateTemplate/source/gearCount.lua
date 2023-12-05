@@ -3,7 +3,46 @@ local gfx <const> = pd.graphics
 
 class('GearCount').extends(gfx.sprite)
 
+--Creates a variable for every third power
 gearNum = 0
+gearNumThousands = 0
+gearNumMillions = 0
+gearNumBillions = 0
+gearNumTrillions = 0
+
+function ManageBaseThreeNums()
+    while gearNum >= 1000 do
+        gearNumThousands += 1
+        gearNum -= 1000
+    end
+    while gearNumThousands >= 1000 do
+        gearNumMillions += 1
+        gearNumThousands -= 1000
+    end
+    while gearNumMillions >= 1000 do
+        gearNumBillions += 1
+        gearNumMillions -= 1000
+    end
+    while gearNumBillions >= 1000 do
+        gearNumTrillions += 1
+        gearNumBillions -= 1000
+    end
+end
+
+function FindDisplayValues()
+    ManageBaseThreeNums()
+    if gearNumTrillions ~= 0 then
+        return gearNumTrillions, " Trillions"
+    elseif gearNumBillions ~= 0 then
+        return gearNumBillions, " Billions"
+    elseif gearNumMillions ~= 0 then
+        return gearNumMillions, " Millions"
+    elseif gearNumThousands ~= 0 then
+        return gearNumThousands, " Thousands"
+    else
+        return gearNum, ""
+    end
+end
 
 --Creates the gear score
 function CreateScoreDisplay()
@@ -21,6 +60,7 @@ end
 
 --Updates the display
 function UpdateDisplay()
+    --local gearNumber, baseThree = FindDisplayValues()
     local gearText = "Gears: " .. gearNum
     local gearTextWidth, gearTextHeight = gfx.getTextSize(gearText)
     local gearImage = gfx.image.new(gearTextWidth, gearTextHeight)

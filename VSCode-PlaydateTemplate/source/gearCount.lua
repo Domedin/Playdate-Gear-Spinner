@@ -32,15 +32,35 @@ end
 function FindDisplayValues()
     ManageBaseThreeNums()
     if gearNumTrillions ~= 0 then
-        return gearNumTrillions, " Trillions"
+        local numOfZeros = 3 - len(tostring(gearNumBillions))
+        if numOfZeros == 3 then
+            return gearNumTrillions, " Trillions", numOfZeros, gearNumBillions, ""
+        else
+            return gearNumTrillions, " Trillions", numOfZeros, gearNumBillions, "."
+        end
     elseif gearNumBillions ~= 0 then
-        return gearNumBillions, " Billions"
+        local numOfZeros = 3 - len(tostring(gearNumMillions))
+        if numOfZeros == 3 then
+            return gearNumBillions, " Billions", numOfZeros, gearNumMillions, ""
+        else
+            return gearNumBillions, " Billions", numOfZeros, gearNumMillions, "."
+        end
     elseif gearNumMillions ~= 0 then
-        return gearNumMillions, " Millions"
+        local numOfZeros = 3 - len(tostring(gearNumThousands))
+        if numOfZeros == 3 then
+            return gearNumMillions, " Billions", numOfZeros, gearNumThousands, ""
+        else
+            return gearNumMillions, " Billions", numOfZeros, gearNumThousands, "."
+        end
     elseif gearNumThousands ~= 0 then
-        return gearNumThousands, " Thousands"
+        local numOfZeros = 3 - len(tostring(gearNum))
+        if numOfZeros == 3 then
+            return gearNumThousands, " Billions", numOfZeros, gearNum, ""
+        else
+            return gearNumThousands, " Billions", numOfZeros, gearNum, "."
+        end
     else
-        return gearNum, ""
+        return gearNum, "", "", "", ""
     end
 end
 
@@ -60,8 +80,8 @@ end
 
 --Updates the display
 function UpdateDisplay()
-    --local gearNumber, baseThree = FindDisplayValues()
-    local gearText = "Gears: " .. gearNum
+    local gearNumber, baseThree, numOfZeros, decimalValue, decimal = FindDisplayValues()
+    local gearText = "Gears: " .. gearNumber .. baseThree .. decimal .. numOfZeros .. decimalValue
     local gearTextWidth, gearTextHeight = gfx.getTextSize(gearText)
     local gearImage = gfx.image.new(gearTextWidth, gearTextHeight)
     gfx.pushContext(gearImage)

@@ -4,63 +4,60 @@ local gfx <const> = pd.graphics
 class('GearCount').extends(gfx.sprite)
 
 --Creates a variable for every third power
-gearNum = 0
-gearNumThousands = 0
-gearNumMillions = 0
-gearNumBillions = 0
-gearNumTrillions = 0
+GearCountNums = {ONES = 0, THOUSANDS = 0, MILLIONS = 0, BILLIONS = 0, TRILLIONS = 0}
+GearBaseMultipliers = {1, 1000, 1000000, 1000000000, 1000000000}
 
 function ManageBaseThreeNums()
-    while gearNum >= 1000 do
-        gearNumThousands += 1
-        gearNum -= 1000
+    while GearCountNums.ONES >= 1000 do
+        GearCountNums.THOUSANDS += 1
+        GearCountNums.ONES -= 1000
     end
-    while gearNumThousands >= 1000 do
-        gearNumMillions += 1
-        gearNumThousands -= 1000
+    while GearCountNums.THOUSANDS >= 1000 do
+        GearCountNums.MILLIONS += 1
+        GearCountNums.THOUSANDS -= 1000
     end
-    while gearNumMillions >= 1000 do
-        gearNumBillions += 1
-        gearNumMillions -= 1000
+    while GearCountNums.MILLIONS >= 1000 do
+        GearCountNums.BILLIONS += 1
+        GearCountNums.MILLIONS -= 1000
     end
-    while gearNumBillions >= 1000 do
-        gearNumTrillions += 1
-        gearNumBillions -= 1000
+    while GearCountNums.BILLIONS >= 1000 do
+        GearCountNums.TRILLIONS += 1
+        GearCountNums.BILLIONS -= 1000
     end
 end
 
 function FindDisplayValues()
     ManageBaseThreeNums()
-    if gearNumTrillions ~= 0 then
-        local numOfZeros = 3 - len(tostring(gearNumBillions))
+    if GearCountNums.TRILLIONS ~= 0 then
+        local numOfZeros = 3 - string.len(tostring(gearNumBillions))
         if numOfZeros == 3 then
-            return gearNumTrillions, " Trillions", numOfZeros, gearNumBillions, ""
+            return GearCountNums.TRILLIONS, " Trillions", numOfZeros, GearCountNums.BILLIONS, ""
         else
-            return gearNumTrillions, " Trillions", numOfZeros, gearNumBillions, "."
+            return GearCountNums.TRILLIONS, " Trillions", numOfZeros, GearCountNums.BILLIONS, "."
         end
-    elseif gearNumBillions ~= 0 then
-        local numOfZeros = 3 - len(tostring(gearNumMillions))
+    elseif GearCountNums.BILLIONS ~= 0 then
+        local numOfZeros = 3 - string.len(tostring(GearCountNums.MILLIONS))
         if numOfZeros == 3 then
-            return gearNumBillions, " Billions", numOfZeros, gearNumMillions, ""
+            return GearCountNums.BILLIONS, " Billions", numOfZeros, GearCountNums.MILLIONS, ""
         else
-            return gearNumBillions, " Billions", numOfZeros, gearNumMillions, "."
+            return GearCountNums.BILLIONS, " Billions", numOfZeros, GearCountNums.MILLIONS, "."
         end
-    elseif gearNumMillions ~= 0 then
-        local numOfZeros = 3 - len(tostring(gearNumThousands))
+    elseif GearCountNums.MILLIONS ~= 0 then
+        local numOfZeros = 3 - string.len(tostring(GearCountNums.THOUSANDS))
         if numOfZeros == 3 then
-            return gearNumMillions, " Billions", numOfZeros, gearNumThousands, ""
+            return GearCountNums.MILLIONS, " Millions", numOfZeros, GearCountNums.THOUSANDS, ""
         else
-            return gearNumMillions, " Billions", numOfZeros, gearNumThousands, "."
+            return GearCountNums.MILLIONS, " Millions", numOfZeros, GearCountNums.THOUSANDS, "."
         end
-    elseif gearNumThousands ~= 0 then
-        local numOfZeros = 3 - len(tostring(gearNum))
+    elseif GearCountNums.THOUSANDS ~= 0 then
+        local numOfZeros = 3 - string.len(tostring(GearCountNums.ONES))
         if numOfZeros == 3 then
-            return gearNumThousands, " Billions", numOfZeros, gearNum, ""
+            return GearCountNums.THOUSANDS, " Thousands", numOfZeros, GearCountNums.ONES, ""
         else
-            return gearNumThousands, " Billions", numOfZeros, gearNum, "."
+            return GearCountNums.THOUSANDS, " Thousands", numOfZeros, GearCountNums.ONES, "."
         end
     else
-        return gearNum, "", "", "", ""
+        return GearCountNums.ONES, "", "", "", ""
     end
 end
 
@@ -81,7 +78,7 @@ end
 --Updates the display
 function UpdateDisplay()
     local gearNumber, baseThree, numOfZeros, decimalValue, decimal = FindDisplayValues()
-    local gearText = "Gears: " .. gearNumber .. baseThree .. decimal .. numOfZeros .. decimalValue
+    local gearText = "Gears: " .. gearNumber .. numOfZeros .. decimal .. decimalValue .. baseThree
     local gearTextWidth, gearTextHeight = gfx.getTextSize(gearText)
     local gearImage = gfx.image.new(gearTextWidth, gearTextHeight)
     gfx.pushContext(gearImage)
@@ -110,7 +107,7 @@ function incrementGearScore()
     for i,upgradeNum in pairs(gearMultipliers) do
         gearTotalMultiplication *= upgradeNum
     end
-    gearNum += 1 * gearTotalMultiplication
+    GearCountNums.ONES += 1 * gearTotalMultiplication
     UpdateDisplay()
 end
 
@@ -139,9 +136,9 @@ function incrementBuildingScore()
     UpdateGPS()
     --adds the total GPS of each building to the gearNum
     for i,buildingNum in ipairs(Buildings) do
-        gearNum += buildingNum.TOTALGPS
+        GearCountNums.ONES += buildingNum.TOTALGPS
     end
-    gearNum = round(gearNum, 1)
+    GearCountNums.ONES = round(GearCountNums.ONES, 1)
     UpdateDisplay()
 end
 

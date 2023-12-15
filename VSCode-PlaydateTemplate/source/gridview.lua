@@ -114,7 +114,7 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         gfx.popContext()
         upgradeType:setImage(typeTextImage)
 
-        local costText =  "Cost: " .. Upgrades[grid_index].COST
+        local costText =  "Cost: " .. Upgrades[grid_index].COST .. " " .. UpgradeBaseNames[Upgrades[grid_index].GEARBASE]
         local costTextWidth, costTextHeight = gfx.getTextSize(costText)
         local costTextImage = gfx.image.new(costTextWidth, costTextHeight)
         gfx.pushContext(costTextImage)

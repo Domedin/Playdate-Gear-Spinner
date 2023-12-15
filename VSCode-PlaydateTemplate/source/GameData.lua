@@ -39,8 +39,8 @@ function LoadGameData()
                 end
             end
         end
-        if gameData.gearNumber then
-            gearNum = gameData.gearNumber
+        if gameData.gearNumbers then
+            GearCountNums = gameData.gearNumbers
         end
         if gameData.BuildingsOwned and gameData.buildingsCost then
             for i=1, 8 do
@@ -79,7 +79,7 @@ end
 function saveGameData()
     -- Save game data into a table first
     local gameData = {
-        gearNumber = gearNum,
+        gearNumbers = GearCountNums,
         BuildingsOwned = {Buildings[1].AMOUNT, Buildings[2].AMOUNT, Buildings[3].AMOUNT, Buildings[4].AMOUNT, Buildings[5].AMOUNT, Buildings[6].AMOUNT, Buildings[7].AMOUNT, Buildings[8].AMOUNT},
         buildingsCost = {Buildings[1].COST, Buildings[2].COST, Buildings[3].COST, Buildings[4].COST, Buildings[5].COST, Buildings[6].COST, Buildings[7].COST, Buildings[8].COST},
         upgradesBought = UpgradesBought,

@@ -131,7 +131,7 @@ function upgradesGridView:drawCell(section, row, column, selected, x, y, width, 
         upgradeMultiplier:setImage(multiplierTextImage)
 
         --if A is pressed and selected and gearNum < cost delete
-        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index].COST then
+        if pd.buttonJustPressed(pd.kButtonA) and gearNum >= Upgrades[grid_index].COST then --This line needs to be changed to factor gear cost
             gearNum -= Upgrades[grid_index].COST
             if Upgrades[grid_index].TYPE == "Gear" then
                 table.insert(gearMultipliers, Upgrades[grid_index].MULTIPLIER)

@@ -102,8 +102,16 @@ function createUpgrades()
     insertUpgrade(8, 9.876, 2, eigthImage, selectedEightImage, 50, 4)
     insertUpgrade(8, 98.765, 2, eigthImage, selectedEightImage, 51, 4)
     insertUpgrade(8, 1.234, 2, eigthImage, selectedEightImage, 52, 5)
-
-    table.sort(Upgrades, function(a, b) return a.COST * GearBaseMultipliers[a.GEARBASE] < b.COST * GearBaseMultipliers[b.GEARBASE] end)
+    
+    table.sort(Upgrades, function(a, b)
+        if a.GEARBASE > b.GEARBASE then
+            return a.GEARBASE < b.GEARBASE
+        elseif a.GEARBASE < b.GEARBASE then
+            return a.GEARBASE < b.GEARBASE
+        else
+            return a.COST < b.COST
+        end
+    end)
 end
 
 --navigates the upgrade cells
